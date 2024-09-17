@@ -7,8 +7,8 @@ module SMART_UDAP_HarmonizationTestKit
     )
     id :harmonization_smart_discovery_group
 
-    # Do we need SMART metadata for anything?
-    group from: :smart_discovery_stu1
+    # TODO: Do we need SMART metadata for anything?
+    group from: :smart_discovery
     group from: :smart_discovery_stu2
   end
 end
