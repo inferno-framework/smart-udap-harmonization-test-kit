@@ -1,5 +1,6 @@
 require 'udap_security_test_kit/discovery_group'
 require 'udap_security_test_kit/dynamic_client_registration_group'
+require_relative 'authorization_code_authentication_group'
 
 module SMART_UDAP_HarmonizationTestKit
   class AuthorizationCodeGWorkflowGroup < Inferno::TestGroup
@@ -99,7 +100,6 @@ module SMART_UDAP_HarmonizationTestKit
                   :udap_jwt_signing_alg, :udap_registration_certifications_auth_code_flow
     end
 
-    group from: :udap_authorization_code_authentication_group,
-          run_as_group: true
+    group from: :harmonization_authorization_code_authentication_group
   end
 end

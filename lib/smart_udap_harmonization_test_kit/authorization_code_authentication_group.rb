@@ -1,3 +1,5 @@
+require_relative 'harmonization_authorization_code_redirect_test'
+
 module SMART_UDAP_HarmonizationTestKit
   class AuthorizationCodeAuthenticationGroup < Inferno::TestGroup
     title 'UDAP Authorization Code Authorization & Authentication'
@@ -11,41 +13,40 @@ module SMART_UDAP_HarmonizationTestKit
     )
     id :harmonization_authorization_code_authentication_group
 
-    # TODO: consider breaking into 2 groups: baseline UDAP and scope assessment
-    # TODO: redo test to include scopes
-    test from: :udap_authorization_code_redirect
-    test from: :udap_authorization_code_received
-    test from: :udap_authorization_code_token_exchange,
-         config: {
-           requests: {
-             token_exchange: {
-               name: :authorization_code_token_exchange
-             }
-           }
-         }
-    test from: :udap_token_exchange_response_body,
-         config: {
-           inputs: {
-             token_response_body: {
-               name: :authorization_code_token_response_body
-             }
-           }
-         }
+    run_as_group
 
-    # TODO: include test that checks for scope claim in token exchange response
-    # body
+    test from: :harmonization_authorization_code_redirect
+    test from: :udap_authorization_code_received
+    # test from: :udap_authorization_code_token_exchange,
+    #      config: {
+    #        requests: {
+    #          token_exchange: {
+    #            name: :authorization_code_token_exchange
+    #          }
+    #        }
+    #      }
+    # test from: :udap_token_exchange_response_body,
+    #      config: {
+    #        inputs: {
+    #          token_response_body: {
+    #            name: :authorization_code_token_response_body
+    #          }
+    #        }
+    #      }
+
+    # # TODO: include test that checks for scope claim in token exchange response
+    # # body
     
-    test from: :udap_token_exchange_response_headers,
-         config: {
-           requests: {
-             token_exchange: {
-               name: :authorization_code_token_exchange
-             }
-           }
-         }
+    # test from: :udap_token_exchange_response_headers,
+    #      config: {
+    #        requests: {
+    #          token_exchange: {
+    #            name: :authorization_code_token_exchange
+    #          }
+    #        }
+    #      }
 
     # TODO: include tests (import or reuse logic from SMART App Launch) that
-    # will conditionally assess ID token and use of refresh token, depending on
-    # requested scopes
+    # will conditionally assess ID token and refresh token
   end
 end
