@@ -7,7 +7,7 @@ module SMART_UDAP_HarmonizationTestKit
     )
     id :harmonization_smart_discovery_group
 
-    # For now don't run as group
+    # Do we need SMART metadata for anything?
     group from: :smart_discovery_stu1
     group from: :smart_discovery_stu2
   end
