@@ -48,17 +48,14 @@ module SMART_UDAP_HarmonizationTestKit
           }
          }
 
-    # # TODO: include test that checks for scope claim in token exchange response
-    # # body
-    
-    # test from: :udap_token_exchange_response_headers,
-    #      config: {
-    #        requests: {
-    #          token_exchange: {
-    #            name: :authorization_code_token_exchange
-    #          }
-    #        }
-    #      }
+    test from: :udap_token_exchange_response_headers,
+    config: {
+      requests: {
+        token_exchange: {
+          name: :authorization_code_token_exchange
+        }
+      }
+    }
 
     # TODO: include tests (import or reuse logic from SMART App Launch) that
     # will conditionally assess ID token and refresh token
