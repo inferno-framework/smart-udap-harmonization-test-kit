@@ -1,9 +1,9 @@
 require 'udap_security_test_kit/discovery_group'
 require 'udap_security_test_kit/dynamic_client_registration_group'
-require_relative 'authorization_code_authentication_group'
+require_relative 'harmonization_authorization_code_authentication_group'
 
 module SMART_UDAP_HarmonizationTestKit
-  class AuthorizationCodeGWorkflowGroup < Inferno::TestGroup
+  class HarmonziationAuthorizationCodeGroup < Inferno::TestGroup
     title 'UDAP Authorization Code Flow'
     description %(
       This group tests UDAP servers that support JWT authentication using an OAuth2.0 authorization_code grant flow and
@@ -14,7 +14,7 @@ module SMART_UDAP_HarmonizationTestKit
       3. Authorization and Authentication with SMART App Launch compliant scopes.
 
     )
-    id :harmonization_authorization_code_workflow_group
+    id :harmonization_authorization_code_group
 
     input_instructions %(
       **Discovery Tests**

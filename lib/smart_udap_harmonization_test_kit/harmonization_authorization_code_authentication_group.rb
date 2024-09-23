@@ -2,7 +2,7 @@ require_relative 'harmonization_authorization_code_redirect_test'
 require_relative 'harmonization_token_response_scope_test'
 
 module SMART_UDAP_HarmonizationTestKit
-  class AuthorizationCodeAuthenticationGroup < Inferno::TestGroup
+  class HarmonizationAuthorizationCodeAuthenticationGroup < Inferno::TestGroup
     title 'UDAP Authorization Code Authorization & Authentication'
     description %(
       This group tests the use of the authorization_code grant type in conjunction with SMART scopes to receive an authorization code from the
