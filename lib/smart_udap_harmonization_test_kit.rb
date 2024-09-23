@@ -1,7 +1,4 @@
-require 'smart_app_launch_test_kit'
 require 'udap_security_test_kit'
-
-require_relative 'smart_udap_harmonization_test_kit/smart_discovery_group'
 require_relative 'smart_udap_harmonization_test_kit/authorization_code_workflow_group'
 
 module SMARTUDAPHarmonizationTestKit
@@ -21,22 +18,7 @@ module SMARTUDAPHarmonizationTestKit
     config options: {
       redirect_uri: "#{Inferno::Application['base_url']}/custom/smart_udap_harmonization_test_kit/redirect",
     }
-    # # These inputs will be available to all tests in this suite
-    # input :fhir_base_url,
-    #       title: 'FHIR Server Base Url'
-
-    # input :credentials,
-    #       title: 'OAuth Credentials',
-    #       type: :oauth_credentials,
-    #       optional: true
-
-    # # All FHIR requests in this suite will use this FHIR client
-    # fhir_client do
-    #   url :fhir_base_url
-    #   oauth_credentials :credentials
-    # end
-
-    group from: :harmonization_smart_discovery_group
+   
     group from: :harmonization_authorization_code_workflow_group
   end
 end

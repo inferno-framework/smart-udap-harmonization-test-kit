@@ -1,6 +1,5 @@
 require_relative 'harmonization_authorization_code_redirect_test'
 require_relative 'harmonization_token_response_scope_test'
-require 'smart_app_launch/token_response_body_test'
 
 module SMART_UDAP_HarmonizationTestKit
   class AuthorizationCodeAuthenticationGroup < Inferno::TestGroup
