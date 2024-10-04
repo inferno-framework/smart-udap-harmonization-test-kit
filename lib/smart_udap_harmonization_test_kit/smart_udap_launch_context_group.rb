@@ -1,4 +1,5 @@
 require_relative './smart_udap_encounter_context_test'
+require_relative './smart_udap_need_patient_banner_context_test'
 require_relative './smart_udap_patient_context_test'
 
 module SMART_UDAP_HarmonizationTestKit
@@ -9,10 +10,13 @@ module SMART_UDAP_HarmonizationTestKit
     DESCRIPTION
 
     test from: :smart_udap_patient_context
+
     test from: :smart_udap_encounter_context
 
-    # fhirContext
-    # need_patient_banner
+    # TODO: fhirContext - deal with multi-version support or not?
+
+    test from: :smart_udap_need_patient_banner_context
+
     # intent
     # smart_style_url
     # tenant
