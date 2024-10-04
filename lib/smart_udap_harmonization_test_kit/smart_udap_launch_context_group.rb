@@ -1,3 +1,4 @@
+require_relative './smart_udap_encounter_context_test'
 require_relative './smart_udap_patient_context_test'
 
 module SMART_UDAP_HarmonizationTestKit
@@ -8,8 +9,8 @@ module SMART_UDAP_HarmonizationTestKit
     DESCRIPTION
 
     test from: :smart_udap_patient_context
+    test from: :smart_udap_encounter_context
 
-    # encounter
     # fhirContext
     # need_patient_banner
     # intent
