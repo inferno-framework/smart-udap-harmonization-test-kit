@@ -3,7 +3,6 @@ Gem::Specification.new do |spec|
   spec.version       = '0.0.1'
   spec.authors       = ['Alisa Wallace']
   spec.email         = ['inferno@groups.mitre.org']
-  spec.date          = Time.now.utc.strftime('%Y-%m-%d')
   spec.summary       = 'SMART-UDAP Harmonization Test Kit'
   spec.description   = 'Test Kit for integrating SMART App Launch and UDAP Security IGs'
   # spec.homepage      = 'TODO'

@@ -37,24 +37,24 @@ module SMART_UDAP_HarmonizationTestKit
 
     test from: :harmonization_token_response_scope,
          config: {
-          inputs: {
-            token_response_body: {
-              name: :authorization_code_token_response_body
-            },
-            udap_registration_requested_scope: {
-              name: :udap_registration_scope_auth_code_flow
-            }
-          }
+           inputs: {
+             token_response_body: {
+               name: :authorization_code_token_response_body
+             },
+             udap_registration_requested_scope: {
+               name: :udap_registration_scope_auth_code_flow
+             }
+           }
          }
 
     test from: :udap_token_exchange_response_headers,
-    config: {
-      requests: {
-        token_exchange: {
-          name: :authorization_code_token_exchange
-        }
-      }
-    }
+         config: {
+           requests: {
+             token_exchange: {
+               name: :authorization_code_token_exchange
+             }
+           }
+         }
 
     # TODO: include tests (import or reuse logic from SMART App Launch) that
     # will conditionally assess ID token and refresh token

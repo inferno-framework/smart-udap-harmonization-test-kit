@@ -29,14 +29,14 @@ module SMART_UDAP_HarmonizationTestKit
       token_response_body_parsed = JSON.parse(token_response_body)
 
       output smart_credentials: {
-               refresh_token: token_response_body_parsed['refresh_token'],
-               access_token: token_response_body_parsed['access_token'],
-               expires_in: token_response_body_parsed['expires_in'],
-               client_id: udap_client_id,
-               client_secret: '',
-               token_retrieval_time: token_retrieval_time,
-               token_url: udap_token_endpoint
-    }.to_json
+        refresh_token: token_response_body_parsed['refresh_token'],
+        access_token: token_response_body_parsed['access_token'],
+        expires_in: token_response_body_parsed['expires_in'],
+        client_id: udap_client_id,
+        client_secret: '',
+        token_retrieval_time:,
+        token_url: udap_token_endpoint
+      }.to_json
 
       output id_token: token_response_body_parsed['id_token'],
              refresh_token: token_response_body_parsed['refresh_token'],

@@ -12,6 +12,12 @@ module SMART_UDAP_HarmonizationTestKit
       inputs: {
         client_id: {
           name: :udap_client_id
+        },
+        requested_scopes: {
+          name: :udap_registration_scope_auth_code_flow
+        },
+        url: {
+          name: :udap_fhir_base_url
         }
       }
     )
@@ -21,10 +27,8 @@ module SMART_UDAP_HarmonizationTestKit
       title 'OpenID Connect Test Setup'
 
       input :token_response_body
-      input :udap_software_statement_json
       input :token_retrieval_time
       output :id_token,
-             :requested_scopes,
              :access_token,
              :smart_credentials
 
@@ -33,12 +37,7 @@ module SMART_UDAP_HarmonizationTestKit
 
         token_response = JSON.parse(token_response_body)
 
-        assert_valid_json(udap_software_statement_json)
-
-        udap_software_statement = JSON.parse(udap_software_statement_json)
-
         output id_token: token_response['id_token'],
-               requested_scopes: udap_software_statement['scope'],
                access_token: token_response['access_token'],
                smart_credentials: {
                  access_token: token_response_body['access_token'],

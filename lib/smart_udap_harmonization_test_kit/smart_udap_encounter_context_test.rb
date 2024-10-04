@@ -1,4 +1,4 @@
-require_relative './smart_udap_context_test'
+require_relative 'smart_udap_context_test'
 
 module SMART_UDAP_HarmonizationTestKit
   class SMART_UDAP_EncounterContextTest < SMART_UDAP_ContextTest
@@ -44,9 +44,9 @@ module SMART_UDAP_HarmonizationTestKit
       assert context_field.is_a?(String),
              "Expected `#{context_field_name}` to be a String, but found: `#{context_field.class.name}`"
 
-      warn {
+      warn do
         assert context_field.match?(FHIR_ID_REGEX), "`#{context_field}` is not a valid FHIR resource id."
-      }
+      end
 
       fhir_read(:encounter, context_field)
 

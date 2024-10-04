@@ -77,9 +77,7 @@ module SMART_UDAP_HarmonizationTestKit
         end
       end
 
-      if !missing_received_context_scopes?
-        assert context_field_present?
-      end
+      assert context_field_present? unless missing_received_context_scopes?
 
       skip_if !context_field_present?, "Token response did not contain `#{context_field_name}` field."
 

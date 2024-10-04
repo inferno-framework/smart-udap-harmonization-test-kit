@@ -1,4 +1,4 @@
-require_relative './smart_udap_context_test'
+require_relative 'smart_udap_context_test'
 
 module SMART_UDAP_HarmonizationTestKit
   class SMART_UDAP_IntentContextTest < SMART_UDAP_ContextTest
