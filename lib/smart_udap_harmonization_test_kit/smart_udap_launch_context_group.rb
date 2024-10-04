@@ -1,4 +1,5 @@
 require_relative './smart_udap_encounter_context_test'
+require_relative './smart_udap_intent_context_test'
 require_relative './smart_udap_need_patient_banner_context_test'
 require_relative './smart_udap_patient_context_test'
 
@@ -17,7 +18,8 @@ module SMART_UDAP_HarmonizationTestKit
 
     test from: :smart_udap_need_patient_banner_context
 
-    # intent
+    test from: :smart_udap_intent_context
+
     # smart_style_url
     # tenant
     # id_token

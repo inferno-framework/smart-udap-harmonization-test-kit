@@ -38,7 +38,8 @@ module SMART_UDAP_HarmonizationTestKit
     end
 
     def validate_context_field
-      assert context_field.is_a?(String), "Expected `#{context_field_name}` to be a String, but found: `#{}`"
+      assert context_field.is_a?(String),
+             "Expected `#{context_field_name}` to be a String, but found: `#{context_field.class.name}`"
 
       warn {
         assert context_field.match?(FHIR_ID_REGEX), "`#{context_field}` is not a valid FHIR resource id."
