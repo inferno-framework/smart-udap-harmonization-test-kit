@@ -2,6 +2,7 @@ require_relative './smart_udap_encounter_context_test'
 require_relative './smart_udap_intent_context_test'
 require_relative './smart_udap_need_patient_banner_context_test'
 require_relative './smart_udap_patient_context_test'
+require_relative './smart_udap_smart_style_url_context_test'
 
 module SMART_UDAP_HarmonizationTestKit
   class SMART_UDAP_LaunchContextGroup < Inferno::TestGroup
@@ -20,7 +21,8 @@ module SMART_UDAP_HarmonizationTestKit
 
     test from: :smart_udap_intent_context
 
-    # smart_style_url
+    test from: :smart_udap_smart_style_url_context
+
     # tenant
     # id_token
     # refresh_token
