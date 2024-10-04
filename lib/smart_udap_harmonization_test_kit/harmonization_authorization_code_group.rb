@@ -2,7 +2,9 @@ require 'udap_security_test_kit/discovery_group'
 require 'udap_security_test_kit/dynamic_client_registration_group'
 require 'smart_app_launch/openid_connect_group'
 require 'smart_app_launch/token_refresh_group'
+
 require_relative 'harmonization_authorization_code_authentication_group'
+require_relative 'smart_udap_launch_context_group'
 
 module SMART_UDAP_HarmonizationTestKit
   class HarmonziationAuthorizationCodeGroup < Inferno::TestGroup
@@ -128,5 +130,7 @@ module SMART_UDAP_HarmonizationTestKit
 
     # TODO: include token refresh? This seems part of SMART scopes but is
     # specified as OPTIONAL in UDAP - does SMART override this?
+
+    group from: :smart_udap_launch_context
   end
 end

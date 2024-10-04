@@ -1,6 +1,14 @@
+require_relative './smart_udap_patient_context_test'
+
 module SMART_UDAP_HarmonizationTestKit
   class SMART_UDAP_LaunchContextGroup < Inferno::TestGroup
-    # patient
+    title 'SMART/UDAP Launch Context'
+    id :smart_udap_launch_context
+    description <<~DESCRIPTION
+    DESCRIPTION
+
+    test from: :smart_udap_patient_context
+
     # encounter
     # fhirContext
     # need_patient_banner
