@@ -9,11 +9,6 @@ module SMART_UDAP_HarmonizationTestKit
       launch context.
     DESCRIPTION
 
-    fhir_client do
-      url :url
-      bearer_token :access_token
-    end
-
     def context_field_name
       'tenant'
     end

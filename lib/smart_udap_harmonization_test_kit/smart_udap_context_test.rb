@@ -3,7 +3,7 @@ module SMART_UDAP_HarmonizationTestKit
     attr_accessor :token_response
 
     input :token_response_body
-    input :udap_software_statement_json
+    input :udap_registration_scope_auth_code_flow
 
     def context_field
       token_response[context_field_name]
@@ -14,11 +14,7 @@ module SMART_UDAP_HarmonizationTestKit
     end
 
     def requested_scopes
-      @requested_scopes ||=
-        begin
-          assert_valid_json(udap_software_statement_json)
-          JSON.parse(udap_software_statement_json)['scope']
-        end
+      udap_registration_scope_auth_code_flow
     end
 
     def missing_requested_context_scopes

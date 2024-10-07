@@ -10,11 +10,6 @@ module SMART_UDAP_HarmonizationTestKit
       verifies that the response is valid JSON.
     DESCRIPTION
 
-    fhir_client do
-      url :url
-      bearer_token :access_token
-    end
-
     def context_field_name
       'smart_style_url'
     end
