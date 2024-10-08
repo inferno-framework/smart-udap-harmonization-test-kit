@@ -51,7 +51,6 @@ module SMART_UDAP_HarmonizationTestKit
 
       uri.query = URI.encode_www_form(new_params)
       uri.to_s
-      puts uri
     end
 
     run do
