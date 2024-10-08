@@ -6,7 +6,9 @@ module SMART_UDAP_HarmonizationTestKit
     title 'Token exchange reponse body includes required content for SMART scopes'
     id :harmonization_token_response_scope
     description %(
-        In addition to the baseline UDAP requirements for the token exchange response body, this test verifies that the scope parameter is included in the response body and issues a warning if any of the requested scopes are missing.
+        In addition to the baseline UDAP requirements for the token exchange response body, this test verifies that the
+        scope parameter is included in the response body and issues a warning if any of the requested scopes are
+        missing.
       )
 
     input :token_response_body,

@@ -18,8 +18,10 @@ module SMART_UDAP_HarmonizationTestKit
       3. Authorization and Authentication with SMART App Launch compliant scopes.
 
       There are also two additional test groups to assess conformance with SMART scopes:
-      4. OpenID Connect - these tests will be executed if the `openid` scope was requested in step 3 and an ID token returned along with the access token
-      5. Token Refresh - these tests will be executed if the `offline_access` or `online_access` scopes were requested and in step 3 and a refresh token was returned along with the original access token
+      4. OpenID Connect - these tests will be executed if the `openid` scope was requested in step 3 and an ID token
+      returned along with the access token
+      5. Token Refresh - these tests will be executed if the `offline_access` or `online_access` scopes were requested
+      and in step 3 and a refresh token was returned along with the original access token
     )
     id :harmonization_authorization_code_group
 
@@ -69,8 +71,6 @@ module SMART_UDAP_HarmonizationTestKit
                 name: :udap_cert_iss_auth_code_flow,
                 title: 'Authorization Code JWT Issuer (iss) Claim'
               },
-              # TODO: How do the scopes in registration interact, if at all,
-              # with scopes used during authorization step?
               udap_registration_requested_scope: {
                 name: :udap_registration_scope_auth_code_flow,
                 title: 'Authorization Code Registration Requested Scope(s)',
@@ -118,6 +118,7 @@ module SMART_UDAP_HarmonizationTestKit
     # resource referred to by fhirUser claim but assumes use
     # of client ID and secret which aren't applicable in UDAP - how ot work
     # around this?
+    
     group from: :smart_udap_openid_connect,
           optional: true
   end

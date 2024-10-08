@@ -5,8 +5,8 @@ module SMART_UDAP_HarmonizationTestKit
   class HarmonizationAuthorizationCodeAuthenticationGroup < Inferno::TestGroup
     title 'UDAP Authorization Code Authorization & Authentication'
     description %(
-      This group tests the use of the authorization_code grant type in conjunction with SMART scopes to receive an authorization code from the
-      authorization server and exchange it for an access token, as described
+      This group tests the use of the authorization_code grant type in conjunction with SMART scopes to receive an
+      authorization code from the authorization server and exchange it for an access token, as described
       in the [consumer-facing](https://hl7.org/fhir/us/udap-security/STU1/consumer.html) and
       [business-to-business (B2B)](https://hl7.org/fhir/us/udap-security/STU1/b2b.html) profiles requirements.
 
@@ -55,8 +55,5 @@ module SMART_UDAP_HarmonizationTestKit
              }
            }
          }
-
-    # TODO: include tests (import or reuse logic from SMART App Launch) that
-    # will conditionally assess ID token and refresh token
   end
 end
