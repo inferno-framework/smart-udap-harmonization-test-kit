@@ -28,6 +28,7 @@ module SMART_UDAP_HarmonizationTestKit
            :received_scopes
 
     run do
+      assert_valid_json(token_response_body)
       token_response_body_parsed = JSON.parse(token_response_body)
 
       output smart_credentials: {
