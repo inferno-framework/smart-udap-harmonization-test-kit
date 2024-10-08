@@ -20,7 +20,7 @@ module SMARTUDAPHarmonizationTestKit
     end
 
     config options: {
-      redirect_uri: "#{Inferno::Application['base_url']}/custom/smart_udap_harmonization_test_kit/redirect"
+      redirect_uri: "#{Inferno::Application['base_url']}/custom/smart_udap_harmonization/redirect"
     }
 
     group from: :harmonization_authorization_code_group

@@ -51,9 +51,15 @@ module SMART_UDAP_HarmonizationTestKit
 
       uri.query = URI.encode_www_form(new_params)
       uri.to_s
+      puts uri
     end
 
     run do
+      assert_valid_http_uri(
+        udap_authorization_endpoint,
+        "OAuth2 Authorization Endpoint '#{udap_authorization_endpoint}' is not a valid URI"
+      )
+
       output udap_authorization_code_state: SecureRandom.uuid
 
       oauth2_params = {
