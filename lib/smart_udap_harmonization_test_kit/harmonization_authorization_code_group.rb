@@ -69,8 +69,6 @@ module SMART_UDAP_HarmonizationTestKit
                 name: :udap_cert_iss_auth_code_flow,
                 title: 'Authorization Code JWT Issuer (iss) Claim'
               },
-              # TODO: How do the scopes in registration interact, if at all,
-              # with scopes used during authorization step?
               udap_registration_requested_scope: {
                 name: :udap_registration_scope_auth_code_flow,
                 title: 'Authorization Code Registration Requested Scope(s)',

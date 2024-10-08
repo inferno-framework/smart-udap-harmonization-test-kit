@@ -55,8 +55,5 @@ module SMART_UDAP_HarmonizationTestKit
              }
            }
          }
-
-    # TODO: include tests (import or reuse logic from SMART App Launch) that
-    # will conditionally assess ID token and refresh token
   end
 end
