@@ -21,7 +21,7 @@ module SMART_UDAP_HarmonizationTestKit
     input :udap_registration_scope_auth_code_flow,
           title: 'Requested Scopes',
           description: 'A list of space-separated scopes.',
-          default: 'openid fhirUser offline_access patient/*.read'
+          default: 'launch/patient openid fhirUser offline_access patient/*.read'
 
     output :udap_authorization_code_state
 
