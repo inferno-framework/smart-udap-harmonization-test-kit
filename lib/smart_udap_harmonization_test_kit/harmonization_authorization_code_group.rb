@@ -107,10 +107,6 @@ module SMART_UDAP_HarmonizationTestKit
 
     group from: :harmonization_authorization_code_authentication_group
 
-    # TODO: the fhir_user_claim test in this group checks ability to access the
-    # resource referred to by fhirUser claim but assumes use
-    # of client ID and secret which aren't applicable in UDAP - how ot work
-    # around this?
     group from: :smart_openid_connect,
           config: {
             inputs: {
@@ -126,7 +122,9 @@ module SMART_UDAP_HarmonizationTestKit
             }
           }
 
-    # TODO: include token refresh? This seems part of SMART scopes but is
-    # specified as OPTIONAL in UDAP - does SMART override this?
+    group do
+      title 'TODO: Support for Token Refresh'
+      optional
+    end
   end
 end
