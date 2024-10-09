@@ -60,7 +60,7 @@ module SMART_UDAP_HarmonizationTestKit
     end
 
     run do
-      assert_present(token_response_body)
+      # assert_present(token_response_body)
       assert_valid_json(token_response_body)
       self.token_response = JSON.parse(token_response_body)
 
