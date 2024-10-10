@@ -24,7 +24,7 @@ module SMART_UDAP_HarmonizationTestKit
 
       assert_valid_http_uri context_field
 
-      get(body['smart_style_url'])
+      get(token_response['smart_style_url'])
 
       assert_response_status(200)
       assert_valid_json(response[:body])
