@@ -1,5 +1,5 @@
 require 'udap_security_test_kit'
-require_relative 'smart_udap_harmonization_test_kit/harmonization_authorization_code_group'
+require_relative 'smart_udap_harmonization_test_kit/smart_udap_authorization_code_group'
 
 module SMARTUDAPHarmonizationTestKit
   class Suite < Inferno::TestSuite
@@ -23,6 +23,6 @@ module SMARTUDAPHarmonizationTestKit
       redirect_uri: "#{Inferno::Application['base_url']}/custom/smart_udap_harmonization/redirect"
     }
 
-    group from: :harmonization_authorization_code_group
+    group from: :smart_udap_authorization_code_group
   end
 end

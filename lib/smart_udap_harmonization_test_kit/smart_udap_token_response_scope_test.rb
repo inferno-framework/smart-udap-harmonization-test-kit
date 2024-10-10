@@ -1,10 +1,10 @@
 require 'smart_app_launch/token_payload_validation'
 
 module SMART_UDAP_HarmonizationTestKit
-  class HarmonizationTokenResponseScopeTest < Inferno::Test
+  class SMART_UDAP_TokenResponseScopeTest < Inferno::Test
     include SMARTAppLaunch::TokenPayloadValidation
     title 'Token exchange reponse body includes required content for SMART scopes'
-    id :harmonization_token_response_scope
+    id :smart_udap_token_response_scope
     description %(
         In addition to the baseline UDAP requirements for the token exchange response body, this test verifies that the
         scope parameter is included in the response body and issues a warning if any of the requested scopes are

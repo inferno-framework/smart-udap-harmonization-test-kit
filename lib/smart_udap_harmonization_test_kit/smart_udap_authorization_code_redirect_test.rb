@@ -1,7 +1,7 @@
 module SMART_UDAP_HarmonizationTestKit
-  class HarmonizationAuthorizationCodeRedirectTest < Inferno::Test
+  class SMART_UDAP_AuthorizationCodeRedirectTest < Inferno::Test
     title 'Authorization server redirects client to redirect URI with SMART scopes'
-    id :harmonization_authorization_code_redirect
+    id :smart_udap_authorization_code_redirect
     description %(
         Per [RFC 6749 OAuth 2.0 Authorization Framework Section 4.1.1](https://datatracker.ietf.org/doc/html/rfc6749#section-4.1.1),
         once the server validates the client's authorization request, the authorization server directs the user-agent to

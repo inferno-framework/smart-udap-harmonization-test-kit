@@ -1,11 +1,11 @@
-require_relative '../../lib/smart_udap_harmonization_test_kit/harmonization_authorization_code_redirect_test'
+require_relative '../../lib/smart_udap_harmonization_test_kit/smart_udap_authorization_code_redirect_test'
 require_relative '../request_helper'
 
-RSpec.describe SMART_UDAP_HarmonizationTestKit::HarmonizationAuthorizationCodeRedirectTest do
+RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_AuthorizationCodeRedirectTest do
   include Rack::Test::Methods
   include RequestHelpers
 
-  let(:test) { Inferno::Repositories::Tests.new.find('harmonization_authorization_code_redirect') }
+  let(:test) { Inferno::Repositories::Tests.new.find('smart_udap_authorization_code_redirect') }
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
   let(:results_repo) { Inferno::Repositories::Results.new }
   let(:requests_repo) { Inferno::Repositories::Requests.new }

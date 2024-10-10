@@ -2,12 +2,12 @@ require 'udap_security_test_kit/discovery_group'
 require 'udap_security_test_kit/dynamic_client_registration_group'
 require 'smart_app_launch/token_refresh_group'
 
-require_relative 'harmonization_authorization_code_authentication_group'
+require_relative 'smart_udap_authorization_code_authentication_group'
 require_relative 'smart_udap_launch_context_group'
 require_relative 'smart_udap_openid_connect_group'
 
 module SMART_UDAP_HarmonizationTestKit
-  class HarmonziationAuthorizationCodeGroup < Inferno::TestGroup
+  class SMART_UDAP_Authorization_Code_Group < Inferno::TestGroup
     title 'UDAP Authorization Code Flow'
     description %(
       This group tests UDAP servers that support JWT authentication using an OAuth2.0 authorization_code grant flow and
@@ -26,7 +26,7 @@ module SMART_UDAP_HarmonizationTestKit
       6. Token Refresh - these tests will be executed if the `offline_access` or `online_access` scopes were requested
       and in step 3 and a refresh token was returned along with the original access token
     )
-    id :harmonization_authorization_code_group
+    id :smart_udap_authorization_code_group
 
     input_instructions %(
       **Discovery Tests**
@@ -110,7 +110,7 @@ module SMART_UDAP_HarmonizationTestKit
                   :udap_jwt_signing_alg, :udap_registration_certifications_auth_code_flow
     end
 
-    group from: :harmonization_authorization_code_authentication_group
+    group from: :smart_udap_authorization_code_authentication_group
 
     group from: :smart_udap_launch_context
 
