@@ -19,6 +19,12 @@ module SMART_UDAP_HarmonizationTestKit
          optional: true
 
     # TODO: fhirContext - deal with multi-version support or not?
+    test do
+      title 'TODO: Support for fhirContext'
+      optional
+
+      run { omit }
+    end
 
     test from: :smart_udap_need_patient_banner_context,
          optional: true
