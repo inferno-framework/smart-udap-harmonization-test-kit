@@ -17,7 +17,8 @@ module SMART_UDAP_HarmonizationTestKit
     input :access_token,
           title: 'Access Token',
           description: 'Access token granted by authorization server.'
-    input :url
+    input :url,
+          title: 'FHIR Base URL'
 
     fhir_client do
       url :url
