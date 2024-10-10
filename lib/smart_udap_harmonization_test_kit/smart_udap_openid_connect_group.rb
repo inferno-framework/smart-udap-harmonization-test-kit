@@ -11,13 +11,17 @@ module SMART_UDAP_HarmonizationTestKit
     config(
       inputs: {
         client_id: {
-          name: :udap_client_id
+          name: :udap_client_id,
+          title: 'UDAP Client ID'
         },
         requested_scopes: {
-          name: :udap_registration_scope_auth_code_flow
+          name: :udap_registration_scope_auth_code_flow,
+          title: 'Requested Scopes',
+          description: 'Scopes client requested from the authorization server during the authorization step'
         },
         url: {
-          name: :udap_fhir_base_url
+          name: :udap_fhir_base_url,
+          title: 'FHIR Server Base URL'
         }
       }
     )
@@ -26,8 +30,13 @@ module SMART_UDAP_HarmonizationTestKit
       id :smart_udap_openid_connect_setup
       title 'OpenID Connect Test Setup'
 
-      input :token_response_body
-      input :token_retrieval_time
+      input :token_response_body,
+            title: 'Token Exchange Response Body',
+            description: 'JSON response body returned by the authorization server during the token exchange step'
+
+      input :token_retrieval_time,
+            title: 'Token Retrieval Time'
+
       output :id_token,
              :access_token,
              :smart_credentials
