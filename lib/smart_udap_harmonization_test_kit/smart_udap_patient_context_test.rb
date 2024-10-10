@@ -14,7 +14,9 @@ module SMART_UDAP_HarmonizationTestKit
 
     FHIR_ID_REGEX = /[A-Za-z0-9\-\.]{1,64}/
 
-    input :access_token
+    input :access_token,
+          title: 'Access Token',
+          description: 'Access token granted by authorization server.'
     input :url
 
     fhir_client do

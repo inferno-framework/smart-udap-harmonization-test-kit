@@ -8,7 +8,9 @@ module SMART_UDAP_HarmonizationTestKit
         the provided client redirection URI using an HTTP redirection response.
       )
 
-    input :udap_fhir_base_url
+    input :udap_fhir_base_url,
+          title: 'FHIR Server Base URL',
+          description: 'Base FHIR URL of FHIR Server. Value for the aud parameter in the redirect URI'
 
     input :udap_authorization_endpoint,
           title: 'Authorization Endpoint',
@@ -21,7 +23,7 @@ module SMART_UDAP_HarmonizationTestKit
     input :udap_registration_scope_auth_code_flow,
           title: 'Requested Scopes',
           description: 'A list of space-separated scopes.',
-          default: 'openid fhirUser offline_access patient/*.read'
+          default: 'launch/patient openid fhirUser offline_access patient/*.read'
 
     output :udap_authorization_code_state
 
@@ -54,6 +56,11 @@ module SMART_UDAP_HarmonizationTestKit
     end
 
     run do
+      assert_valid_http_uri(
+        udap_authorization_endpoint,
+        "OAuth2 Authorization Endpoint '#{udap_authorization_endpoint}' is not a valid URI"
+      )
+
       output udap_authorization_code_state: SecureRandom.uuid
 
       oauth2_params = {

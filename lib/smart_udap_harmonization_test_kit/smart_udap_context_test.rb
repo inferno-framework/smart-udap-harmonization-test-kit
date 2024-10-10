@@ -2,8 +2,12 @@ module SMART_UDAP_HarmonizationTestKit
   class SMART_UDAP_ContextTest < Inferno::Test
     attr_accessor :token_response
 
-    input :token_response_body
-    input :udap_registration_scope_auth_code_flow
+    input :token_response_body,
+          title: 'Token Exchange Response Body',
+          description: 'JSON response body returned by the authorization server during the token exchange step'
+    input :udap_registration_scope_auth_code_flow,
+          title: 'Requested Scopes',
+          description: 'Scopes client requested from the authorization server during the authorization step'
 
     def context_field
       token_response[context_field_name]
@@ -73,7 +77,10 @@ module SMART_UDAP_HarmonizationTestKit
         end
       end
 
-      assert context_field_present?, "Token response did not contain `#{context_field_name}` field" unless missing_received_context_scopes?
+      unless missing_received_context_scopes?
+        assert context_field_present?,
+               "Token response did not contain `#{context_field_name}` field"
+      end
 
       skip_if !context_field_present?, "Token response did not contain `#{context_field_name}` field."
 
