@@ -17,10 +17,13 @@ module SMART_UDAP_HarmonizationTestKit
       2. Dynamic Client Registration
       3. Authorization and Authentication with SMART App Launch compliant scopes.
 
-      There are also two additional test groups to assess conformance with SMART scopes:
-      4. OpenID Connect - these tests will be executed if the `openid` scope was requested in step 3 and an ID token
+      There are also three additional test groups to assess conformance with SMART scopes:
+
+      4. SMART/UDAP Launch Context - these tests will validate any SMART launch context parameters returned by the
+      authorization server
+      5. OpenID Connect - these tests will be executed if the `openid` scope was requested in step 3 and an ID token
       returned along with the access token
-      5. Token Refresh - these tests will be executed if the `offline_access` or `online_access` scopes were requested
+      6. Token Refresh - these tests will be executed if the `offline_access` or `online_access` scopes were requested
       and in step 3 and a refresh token was returned along with the original access token
     )
     id :harmonization_authorization_code_group
