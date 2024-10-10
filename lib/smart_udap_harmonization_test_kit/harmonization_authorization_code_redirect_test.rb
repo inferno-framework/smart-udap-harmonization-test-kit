@@ -65,8 +65,6 @@ module SMART_UDAP_HarmonizationTestKit
         'aud' => udap_fhir_base_url
       }.compact
 
-      # Skip launch context, since we aren't using SMART App launch sequence?
-
       authorization_url = authorization_url_builder(
         udap_authorization_endpoint,
         oauth2_params
