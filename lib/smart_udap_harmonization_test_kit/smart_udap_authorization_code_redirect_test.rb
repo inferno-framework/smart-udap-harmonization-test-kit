@@ -10,7 +10,7 @@ module SMART_UDAP_HarmonizationTestKit
 
     input :udap_fhir_base_url,
           title: 'FHIR Server Base URL',
-          description: 'Base FHIR URL of FHIR Server. Value for the aud parameter in the redirect URI'
+          description: 'Base FHIR URL of FHIR Server. Value for the aud parameter in the redirect URI.'
 
     input :udap_authorization_endpoint,
           title: 'Authorization Endpoint',

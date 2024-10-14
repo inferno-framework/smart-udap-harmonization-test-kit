@@ -17,11 +17,11 @@ module SMART_UDAP_HarmonizationTestKit
     input :access_token,
           title: 'Access Token',
           description: 'Access token granted by authorization server.'
-    input :url,
-          title: 'FHIR Base URL'
+    input :udap_fhir_base_url,
+          title: 'FHIR Server URL'
 
     fhir_client do
-      url :url
+      url :udap_fhir_base_url
       bearer_token :access_token
     end
 

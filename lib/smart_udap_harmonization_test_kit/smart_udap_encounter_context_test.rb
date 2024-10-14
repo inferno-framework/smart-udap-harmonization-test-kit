@@ -15,10 +15,11 @@ module SMART_UDAP_HarmonizationTestKit
     FHIR_ID_REGEX = /[A-Za-z0-9\-\.]{1,64}/
 
     input :access_token
-    input :url
+    input :udap_fhir_base_url,
+          title: 'FHIR Server URL'
 
     fhir_client do
-      url :url
+      url :udap_fhir_base_url
       bearer_token :access_token
     end
 

@@ -17,11 +17,11 @@ module SMART_UDAP_HarmonizationTestKit
         requested_scopes: {
           name: :udap_registration_scope_auth_code_flow,
           title: 'Requested Scopes',
-          description: 'Scopes client requested from the authorization server during the authorization step'
+          description: 'Scopes client requested from the authorization server during the authorization step.'
         },
         url: {
           name: :udap_fhir_base_url,
-          title: 'FHIR Server Base URL'
+          title: 'FHIR Server URL'
         }
       }
     )
