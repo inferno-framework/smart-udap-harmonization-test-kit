@@ -7,20 +7,21 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_EncounterContextTest 
   let(:test_session) { repo_create(:test_session, test_suite_id: 'smart_udap_harmonization') }
 
   let(:access_token) { 'example_access_token' }
-  let(:url) { 'https://example.com' }
-  let(:udap_registration_scope_auth_code_flow) { 'openid fhirUser offline_access patient/*.read' }
-  let(:response_body) do
+  let(:udap_fhir_base_url) { 'https://example.com' }
+  let(:udap_registration_scope_auth_code_flow) { 'launch/encounter openid fhirUser offline_access patient/*.read' }
+  let(:token_response_body) do
     {
       'access_token' => access_token,
       'refresh_token' => 'example_refresh_token',
       'id_token' => 'example_id_token',
       'token_type' => 'Bearer',
-      'scope' => udap_registration_requested_scope,
+      'scope' => udap_registration_scope_auth_code_flow,
       'expires_in' => 3600,
-      'encounter' => 'encounter'
+      'encounter' => 'EXAMPLE_ENCOUNTER'
     }
   end
   let(:token_retrieval_time) { Time.now.iso8601 }
+  let(:encounter_id) { 'encounter_id' }
 
   def run(runnable, inputs = {})
     test_run_params = { test_session_id: test_session.id }.merge(runnable.reference_hash)
@@ -36,24 +37,65 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_EncounterContextTest 
     Inferno::TestRunner.new(test_session:, test_run:).run(runnable)
   end
 
-  it 'skips if response body is not present' do
+  # it 'skips if response body is not present' do
+  #   result = run(runnable,
+  #                udap_fhir_base_url:,
+  #                access_token:,
+  #                udap_registration_scope_auth_code_flow:,
+  #                token_response_body: '')
+  #   expect(result.result).to eq('skip')
+  # end
+
+  # it 'fails if response is not valid JSON' do
+  #   invalid_response_body = '{invalid_key: invalid_value}'
+  #   result = run(runnable,
+  #                udap_fhir_base_url:,
+  #                access_token:,
+  #                udap_registration_scope_auth_code_flow:,
+  #                token_response_body: invalid_response_body)
+  #   expect(result.result).to eq('fail')
+  #   expect(result.result_message).to match(/valid JSON/)
+  # end
+
+  # it 'passes if encounter was not requested but is included in response' do
+  #   stub_request(:get, 'https://example.com/Encounter/EXAMPLE_ENCOUNTER')
+  #     .to_return(status: 200, body: FHIR::Encounter.new(id: encounter_id).to_json, headers: {})
+
+  #   result = run(runnable,
+  #                udap_fhir_base_url:,
+  #                access_token:,
+  #                udap_registration_scope_auth_code_flow: 'openid fhirUser offline_access patient/*.read',
+  #                token_response_body: JSON.generate(token_response_body))
+  #   expect(result.result).to eq('pass')
+  # end
+
+  # it 'passes if encounter field present in response but not in received scopes' do
+  #   stub_request(:get, 'https://example.com/Encounter/EXAMPLE_ENCOUNTER')
+  #     .to_return(status: 200, body: FHIR::Encounter.new(id: encounter_id).to_json, headers: {})
+
+  #   token_response_body['scope'] = 'openid fhirUser offline_access patient/*.read'
+
+  #   result = run(runnable,
+  #                udap_fhir_base_url:,
+  #                access_token:,
+  #                udap_registration_scope_auth_code_flow:,
+  #                token_response_body: JSON.generate(token_response_body))
+  #   expect(result.result).to eq('pass')
+  # end
+
+  it 'fails if launch/encounter scope granted but encounter not present in response' do
+    stub_request(:get, 'https://example.com/Encounter/EXAMPLE_ENCOUNTER')
+      .to_return(status: 200, body: FHIR::Encounter.new(id: encounter_id).to_json, headers: {})
+
+    token_response_body.delete('encounter')
     result = run(runnable,
+                 udap_fhir_base_url:,
                  access_token:,
                  udap_registration_scope_auth_code_flow:,
-                 token_response_body: '')
+                 token_response_body: JSON.generate(token_response_body))
     expect(result.result).to eq('skip')
+    expect(result.result_message).to match(/did not contain `encounter` field/)
   end
-
-  it 'fails if response is not valid JSON' do
-    invalid_response_body = '{invalid_key: invalid_value}'
-    result = run(runnable,
-                 access_token:,
-                 udap_registration_scope_auth_code_flow:,
-                 token_response_body: invalid_response_body)
-    expect(result.result).to eq('fail')
-    expect(result.result_message).to match(/valid JSON/)
-  end
-
   # it 'fails if scope parameters is not present' do
   #   correct_response.delete('scope')
   #   result = run(runnable,
