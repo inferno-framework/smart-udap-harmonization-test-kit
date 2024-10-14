@@ -18,7 +18,7 @@ module SMART_UDAP_HarmonizationTestKit
     test from: :smart_udap_encounter_context,
          optional: true
 
-    # TODO: fhirContext - deal with multi-version support or not?
+    # TODO: FI-3281 implement fhirContext tests - deal with multi-version support or not?
     test do
       title 'TODO: Support for fhirContext'
       optional
@@ -37,7 +37,5 @@ module SMART_UDAP_HarmonizationTestKit
 
     test from: :smart_udap_tenant_context,
          optional: true
-
-    # refresh_token
   end
 end
