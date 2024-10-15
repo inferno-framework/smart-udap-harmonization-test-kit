@@ -1,15 +1,15 @@
-require_relative '../../lib/smart_udap_harmonization_test_kit/smart_udap_encounter_context_test'
+require_relative '../../lib/smart_udap_harmonization_test_kit/smart_udap_patient_context_test'
 
-RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_EncounterContextTest do
-  let(:runnable) { Inferno::Repositories::Tests.new.find('smart_udap_encounter_context') }
+RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_PatientContextTest do
+  let(:runnable) { Inferno::Repositories::Tests.new.find('smart_udap_patient_context') }
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
   let(:results_repo) { Inferno::Repositories::Results.new }
   let(:test_session) { repo_create(:test_session, test_suite_id: 'smart_udap_harmonization') }
 
   let(:access_token) { 'example_access_token' }
   let(:udap_fhir_base_url) { 'https://example.com' }
-  let(:udap_registration_scope_auth_code_flow) { 'launch/encounter openid fhirUser offline_access patient/*.read' }
-  let(:scope_no_encounter) { 'openid fhirUser offline_access patient/*.read' }
+  let(:udap_registration_scope_auth_code_flow) { 'launch/patient openid fhirUser offline_access patient/*.read' }
+  let(:scope_no_launch_patient) { 'openid fhirUser offline_access patient/*.read' }
   let(:token_response_body) do
     {
       'access_token' => access_token,
@@ -18,11 +18,11 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_EncounterContextTest 
       'token_type' => 'Bearer',
       'scope' => udap_registration_scope_auth_code_flow,
       'expires_in' => 3600,
-      'encounter' => 'EXAMPLE_ENCOUNTER'
+      'patient' => 'EXAMPLE_PATIENT'
     }
   end
   let(:token_retrieval_time) { Time.now.iso8601 }
-  let(:encounter_id) { 'encounter_id' }
+  let(:patient_id) { 'patient_id' }
 
   def run(runnable, inputs = {})
     test_run_params = { test_session_id: test_session.id }.merge(runnable.reference_hash)
@@ -58,27 +58,9 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_EncounterContextTest 
     expect(result.result_message).to match(/valid JSON/)
   end
 
-  # TODO: the test results in this section (skip if launch/encounter included,
-  # fail if launch/encounter omitted in received scopes) are inverted from what
-  # we get in the patient launch context tests (fail if launch/patient
-  # included, skip if launch/patient omitted from received scopes) - the patient
-  # result make more sense to me, but which are correct?
-  context 'when encounter context parameter requested but omitted from response body' do
-    it 'skips if launch/encounter included in received scopes' do
-      token_response_body.delete('encounter')
-
-      result = run(runnable,
-                   udap_fhir_base_url:,
-                   access_token:,
-                   udap_registration_scope_auth_code_flow:,
-                   token_response_body: JSON.generate(token_response_body))
-      expect(result.result).to eq('skip')
-      expect(result.result_message).to match(/did not contain `encounter` field/)
-    end
-
-    it 'fails if launch/encounter omitted from received scopes' do
-      token_response_body['scope'] = scope_no_encounter
-      token_response_body.delete('encounter')
+  context 'when patient context parameter requested but omitted from response body' do
+    it 'fails if launch/patient included in received scopes' do
+      token_response_body.delete('patient')
 
       result = run(runnable,
                    udap_fhir_base_url:,
@@ -86,14 +68,28 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_EncounterContextTest 
                    udap_registration_scope_auth_code_flow:,
                    token_response_body: JSON.generate(token_response_body))
       expect(result.result).to eq('fail')
+      expect(result.result_message).to match(/did not contain `patient` field/)
+    end
+
+    it 'skips if launch/encounter omitted from received scopes' do
+      token_response_body['scope'] = scope_no_launch_patient
+      token_response_body.delete('patient')
+
+      result = run(runnable,
+                   udap_fhir_base_url:,
+                   access_token:,
+                   udap_registration_scope_auth_code_flow:,
+                   token_response_body: JSON.generate(token_response_body))
+      expect(result.result).to eq('skip')
+      expect(result.result_message).to match(/did not contain `patient` field/)
     end
   end
 
-  context 'when encounter context parameter requested and included in response body' do
-    context 'when referenced encounter resource is valid' do
-      it 'passes if launch/encounter included in received scopes' do
-        stub_request(:get, 'https://example.com/Encounter/EXAMPLE_ENCOUNTER')
-          .to_return(status: 200, body: FHIR::Encounter.new(id: encounter_id).to_json, headers: {})
+  context 'when patient context parameter requested and included in response body' do
+    context 'when referenced patient resource is valid' do
+      it 'passes if launch/patient included in received scopes' do
+        stub_request(:get, 'https://example.com/Patient/EXAMPLE_PATIENT')
+          .to_return(status: 200, body: FHIR::Patient.new(id: patient_id).to_json, headers: {})
 
         result = run(runnable,
                      udap_fhir_base_url:,
@@ -103,11 +99,11 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_EncounterContextTest 
         expect(result.result).to eq('pass')
       end
 
-      it 'passes if encounter omitted from received scopes' do
-        stub_request(:get, 'https://example.com/Encounter/EXAMPLE_ENCOUNTER')
-          .to_return(status: 200, body: FHIR::Encounter.new(id: encounter_id).to_json, headers: {})
+      it 'passes if launch/patient omitted from received scopes' do
+        stub_request(:get, 'https://example.com/Patient/EXAMPLE_PATIENT')
+          .to_return(status: 200, body: FHIR::Patient.new(id: patient_id).to_json, headers: {})
 
-        token_response_body['scope'] = scope_no_encounter
+        token_response_body['scope'] = scope_no_launch_patient
 
         result = run(runnable,
                      udap_fhir_base_url:,
@@ -118,9 +114,9 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_EncounterContextTest 
       end
     end
 
-    context 'when referenced encounter resource is invalid' do
-      it 'fails when encounter value is not a String' do
-        token_response_body['encounter'] = 1234
+    context 'when referenced patient resource is invalid' do
+      it 'fails when patient value is not a String' do
+        token_response_body['patient'] = 1234
 
         result = run(runnable,
                      udap_fhir_base_url:,
@@ -132,7 +128,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_EncounterContextTest 
       end
 
       it 'fails when get request does not return 200 response code' do
-        stub_request(:get, 'https://example.com/Encounter/EXAMPLE_ENCOUNTER')
+        stub_request(:get, 'https://example.com/Patient/EXAMPLE_PATIENT')
           .to_return(status: 401, body: {}.to_json, headers: {})
 
         result = run(runnable,
@@ -145,8 +141,8 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_EncounterContextTest 
       end
 
       it 'fails when get request does not return valid FHIR encounter resource' do
-        stub_request(:get, 'https://example.com/Encounter/EXAMPLE_ENCOUNTER')
-          .to_return(status: 200, body: FHIR::Patient.new(id: encounter_id).to_json, headers: {})
+        stub_request(:get, 'https://example.com/Patient/EXAMPLE_PATIENT')
+          .to_return(status: 200, body: FHIR::Observation.new(id: patient_id).to_json, headers: {})
 
         result = run(runnable,
                      udap_fhir_base_url:,
@@ -154,7 +150,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_EncounterContextTest 
                      udap_registration_scope_auth_code_flow:,
                      token_response_body: JSON.generate(token_response_body))
         expect(result.result).to eq('fail')
-        expect(result.result_message).to match(/expected Encounter, but received Patient/)
+        expect(result.result_message).to match(/expected Patient, but received Observation/)
       end
     end
   end
