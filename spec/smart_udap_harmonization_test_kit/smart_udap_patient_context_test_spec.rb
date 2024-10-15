@@ -21,7 +21,6 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_PatientContextTest do
       'patient' => 'EXAMPLE_PATIENT'
     }
   end
-  let(:token_retrieval_time) { Time.now.iso8601 }
   let(:patient_id) { 'patient_id' }
 
   def run(runnable, inputs = {})

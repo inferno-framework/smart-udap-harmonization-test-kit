@@ -21,7 +21,6 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_EncounterContextTest 
       'encounter' => 'EXAMPLE_ENCOUNTER'
     }
   end
-  let(:token_retrieval_time) { Time.now.iso8601 }
   let(:encounter_id) { 'encounter_id' }
 
   def run(runnable, inputs = {})

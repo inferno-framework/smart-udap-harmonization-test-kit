@@ -18,7 +18,6 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_NeedPatientBannerCont
       'need_patient_banner' => false
     }
   end
-  let(:token_retrieval_time) { Time.now.iso8601 }
 
   def run(runnable, inputs = {})
     test_run_params = { test_session_id: test_session.id }.merge(runnable.reference_hash)
