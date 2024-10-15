@@ -65,31 +65,23 @@ module SMART_UDAP_HarmonizationTestKit
     end
 
     run do
-      puts 'Starting test'
       assert token_response_body.present?, 'No token response body found'
       assert_valid_json(token_response_body)
       self.token_response = JSON.parse(token_response_body)
 
       if context_field_present?
-        puts 'Context field is present'
         if missing_requested_context_scopes?
           info "`#{context_field_name}` field is present in token response even though #{missing_requested_scopes_string} was not requested"
         end
         if missing_received_context_scopes?
-          puts 'missing received context scopes 1'
           warn "`#{context_field_name}` field is present in token response even though #{missing_received_scopes_string} was not received"
         end
-      else
-        puts 'context field is not present'
       end
 
       unless missing_received_context_scopes?
-        puts 'not missing received context scopes, going to assert'
         assert context_field_present?,
                "Token response did not contain `#{context_field_name}` field"
       end
-
-      puts 'We are missing received context scopes, going to skip'
 
       skip_if !context_field_present?, "Token response did not contain `#{context_field_name}` field."
 

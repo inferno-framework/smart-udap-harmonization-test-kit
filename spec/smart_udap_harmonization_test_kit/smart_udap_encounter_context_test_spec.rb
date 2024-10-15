@@ -9,6 +9,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_EncounterContextTest 
   let(:access_token) { 'example_access_token' }
   let(:udap_fhir_base_url) { 'https://example.com' }
   let(:udap_registration_scope_auth_code_flow) { 'launch/encounter openid fhirUser offline_access patient/*.read' }
+  let(:scope_no_encounter) { 'openid fhirUser offline_access patient/*.read' }
   let(:token_response_body) do
     {
       'access_token' => access_token,
@@ -37,98 +38,119 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_EncounterContextTest 
     Inferno::TestRunner.new(test_session:, test_run:).run(runnable)
   end
 
-  # it 'skips if response body is not present' do
-  #   result = run(runnable,
-  #                udap_fhir_base_url:,
-  #                access_token:,
-  #                udap_registration_scope_auth_code_flow:,
-  #                token_response_body: '')
-  #   expect(result.result).to eq('skip')
-  # end
-
-  # it 'fails if response is not valid JSON' do
-  #   invalid_response_body = '{invalid_key: invalid_value}'
-  #   result = run(runnable,
-  #                udap_fhir_base_url:,
-  #                access_token:,
-  #                udap_registration_scope_auth_code_flow:,
-  #                token_response_body: invalid_response_body)
-  #   expect(result.result).to eq('fail')
-  #   expect(result.result_message).to match(/valid JSON/)
-  # end
-
-  # it 'passes if encounter was not requested but is included in response' do
-  #   stub_request(:get, 'https://example.com/Encounter/EXAMPLE_ENCOUNTER')
-  #     .to_return(status: 200, body: FHIR::Encounter.new(id: encounter_id).to_json, headers: {})
-
-  #   result = run(runnable,
-  #                udap_fhir_base_url:,
-  #                access_token:,
-  #                udap_registration_scope_auth_code_flow: 'openid fhirUser offline_access patient/*.read',
-  #                token_response_body: JSON.generate(token_response_body))
-  #   expect(result.result).to eq('pass')
-  # end
-
-  # it 'passes if encounter field present in response but not in received scopes' do
-  #   stub_request(:get, 'https://example.com/Encounter/EXAMPLE_ENCOUNTER')
-  #     .to_return(status: 200, body: FHIR::Encounter.new(id: encounter_id).to_json, headers: {})
-
-  #   token_response_body['scope'] = 'openid fhirUser offline_access patient/*.read'
-
-  #   result = run(runnable,
-  #                udap_fhir_base_url:,
-  #                access_token:,
-  #                udap_registration_scope_auth_code_flow:,
-  #                token_response_body: JSON.generate(token_response_body))
-  #   expect(result.result).to eq('pass')
-  # end
-
-  it 'fails if launch/encounter scope granted but encounter not present in response' do
-    stub_request(:get, 'https://example.com/Encounter/EXAMPLE_ENCOUNTER')
-      .to_return(status: 200, body: FHIR::Encounter.new(id: encounter_id).to_json, headers: {})
-
-    token_response_body.delete('encounter')
+  it 'skips if response body is not present' do
     result = run(runnable,
                  udap_fhir_base_url:,
                  access_token:,
                  udap_registration_scope_auth_code_flow:,
-                 token_response_body: JSON.generate(token_response_body))
+                 token_response_body: '')
     expect(result.result).to eq('skip')
-    expect(result.result_message).to match(/did not contain `encounter` field/)
   end
-  # it 'fails if scope parameters is not present' do
-  #   correct_response.delete('scope')
-  #   result = run(runnable,
-  #                udap_token_endpoint:,
-  #                udap_registration_requested_scope:,
-  #                udap_client_id:,
-  #                token_response_body: JSON.generate(correct_response),
-  #                token_retrieval_time:)
-  #   expect(result.result).to eq('fail')
-  #   expect(result.result_message).to match(/scope/)
-  # end
 
-  # it 'passes when response contains all required values' do
-  #   result = run(runnable,
-  #                udap_token_endpoint:,
-  #                udap_registration_requested_scope:,
-  #                udap_client_id:,
-  #                token_response_body: JSON.generate(correct_response),
-  #                token_retrieval_time:)
+  it 'fails if response body is not valid JSON' do
+    invalid_response_body = '{invalid_key: invalid_value}'
+    result = run(runnable,
+                 udap_fhir_base_url:,
+                 access_token:,
+                 udap_registration_scope_auth_code_flow:,
+                 token_response_body: invalid_response_body)
+    expect(result.result).to eq('fail')
+    expect(result.result_message).to match(/valid JSON/)
+  end
 
-  #   expect(result.result).to eq('pass')
-  # end
+  context 'when encounter context parameter requested but omitted from response body' do
+    it 'skips if launch/encounter included in received scopes' do
+      token_response_body.delete('encounter')
 
-  # it 'passes when scopes are missing from response' do
-  #   correct_response['scope'] = 'openid fhirUser offline_access'
-  #   result = run(runnable,
-  #                udap_token_endpoint:,
-  #                udap_registration_requested_scope:,
-  #                udap_client_id:,
-  #                token_response_body: JSON.generate(correct_response),
-  #                token_retrieval_time:)
+      result = run(runnable,
+                   udap_fhir_base_url:,
+                   access_token:,
+                   udap_registration_scope_auth_code_flow:,
+                   token_response_body: JSON.generate(token_response_body))
+      expect(result.result).to eq('skip')
+      expect(result.result_message).to match(/did not contain `encounter` field/)
+    end
 
-  #   # Is there a way to test for warnings?
-  #   expect(result.result).to eq('pass')
-  # end
+    it 'fails if launch/encounter omitted from received scopes' do
+      token_response_body['scope'] = scope_no_encounter
+      token_response_body.delete('encounter')
+
+      result = run(runnable,
+                   udap_fhir_base_url:,
+                   access_token:,
+                   udap_registration_scope_auth_code_flow:,
+                   token_response_body: JSON.generate(token_response_body))
+      expect(result.result).to eq('fail')
+    end
+  end
+
+  context 'when encounter context parameter requested and included in response body' do
+    context 'when referenced encounter resource is valid' do
+      it 'passes if launch/encounter included in received scopes' do
+        stub_request(:get, 'https://example.com/Encounter/EXAMPLE_ENCOUNTER')
+          .to_return(status: 200, body: FHIR::Encounter.new(id: encounter_id).to_json, headers: {})
+
+        result = run(runnable,
+                     udap_fhir_base_url:,
+                     access_token:,
+                     udap_registration_scope_auth_code_flow:,
+                     token_response_body: JSON.generate(token_response_body))
+        expect(result.result).to eq('pass')
+      end
+
+      it 'passes if encounter omitted from received scopes' do
+        stub_request(:get, 'https://example.com/Encounter/EXAMPLE_ENCOUNTER')
+          .to_return(status: 200, body: FHIR::Encounter.new(id: encounter_id).to_json, headers: {})
+
+        token_response_body['scope'] = scope_no_encounter
+
+        result = run(runnable,
+                     udap_fhir_base_url:,
+                     access_token:,
+                     udap_registration_scope_auth_code_flow:,
+                     token_response_body: JSON.generate(token_response_body))
+        expect(result.result).to eq('pass')
+      end
+    end
+
+    context 'when referenced encounter resource is invalid' do
+      it 'fails when encounter value is not a String' do
+        token_response_body['encounter'] = 1234
+
+        result = run(runnable,
+                     udap_fhir_base_url:,
+                     access_token:,
+                     udap_registration_scope_auth_code_flow:,
+                     token_response_body: JSON.generate(token_response_body))
+        expect(result.result).to eq('fail')
+        expect(result.result_message).to match(/to be a String/)
+      end
+
+      it 'fails when get request does not return 200 response code' do
+        stub_request(:get, 'https://example.com/Encounter/EXAMPLE_ENCOUNTER')
+          .to_return(status: 401, body: {}.to_json, headers: {})
+
+        result = run(runnable,
+                     udap_fhir_base_url:,
+                     access_token:,
+                     udap_registration_scope_auth_code_flow:,
+                     token_response_body: JSON.generate(token_response_body))
+        expect(result.result).to eq('fail')
+        expect(result.result_message).to match(/expected 200, but received 401/)
+      end
+
+      it 'fails when get request does not return valid FHIR encounter resource' do
+        stub_request(:get, 'https://example.com/Encounter/EXAMPLE_ENCOUNTER')
+          .to_return(status: 200, body: FHIR::Patient.new(id: encounter_id).to_json, headers: {})
+
+        result = run(runnable,
+                     udap_fhir_base_url:,
+                     access_token:,
+                     udap_registration_scope_auth_code_flow:,
+                     token_response_body: JSON.generate(token_response_body))
+        expect(result.result).to eq('fail')
+        expect(result.result_message).to match(/expected Encounter, but received Patient/)
+      end
+    end
+  end
 end
