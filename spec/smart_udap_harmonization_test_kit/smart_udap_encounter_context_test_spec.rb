@@ -86,6 +86,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_EncounterContextTest 
                    udap_registration_scope_auth_code_flow:,
                    token_response_body: JSON.generate(token_response_body))
       expect(result.result).to eq('fail')
+      expect(result.result_message).to match(/did not contain `encounter` field/)
     end
   end
 
