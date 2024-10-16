@@ -19,6 +19,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTes
       'expires_in' => 3600
     }
   end
+  let(:token_retrieval_time) { Time.now.iso8601 }
 
   def run(runnable, inputs = {})
     test_run_params = { test_session_id: test_session.id }.merge(runnable.reference_hash)
