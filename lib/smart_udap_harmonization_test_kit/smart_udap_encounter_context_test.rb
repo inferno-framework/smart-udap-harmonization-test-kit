@@ -39,7 +39,7 @@ module SMART_UDAP_HarmonizationTestKit
       # There is no expectation that Encounter context be included when just the
       # "launch" scope is used, so we shouldn't expect to see the "encounter"
       # context field just because "launch" was received
-      received_scopes_list.include? 'launch/encounter'
+      received_scopes_list.exclude? 'launch/encounter'
     end
 
     def validate_context_field

@@ -57,26 +57,8 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_EncounterContextTest 
     expect(result.result_message).to match(/valid JSON/)
   end
 
-  # TODO: the test results in this section (skip if launch/encounter included,
-  # fail if launch/encounter omitted in received scopes) are inverted from what
-  # we get in the patient launch context tests (fail if launch/patient
-  # included, skip if launch/patient omitted from received scopes) - the patient
-  # result make more sense to me, but which are correct?
   context 'when encounter context parameter requested but omitted from response body' do
-    it 'skips if launch/encounter included in received scopes' do
-      token_response_body.delete('encounter')
-
-      result = run(runnable,
-                   udap_fhir_base_url:,
-                   access_token:,
-                   udap_registration_scope_auth_code_flow:,
-                   token_response_body: JSON.generate(token_response_body))
-      expect(result.result).to eq('skip')
-      expect(result.result_message).to match(/did not contain `encounter` field/)
-    end
-
-    it 'fails if launch/encounter omitted from received scopes' do
-      token_response_body['scope'] = scope_no_encounter
+    it 'fails if launch/encounter included in received scopes' do
       token_response_body.delete('encounter')
 
       result = run(runnable,
@@ -85,6 +67,19 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_EncounterContextTest 
                    udap_registration_scope_auth_code_flow:,
                    token_response_body: JSON.generate(token_response_body))
       expect(result.result).to eq('fail')
+      expect(result.result_message).to match(/did not contain `encounter` field/)
+    end
+
+    it 'skips if launch/encounter omitted from received scopes' do
+      token_response_body['scope'] = scope_no_encounter
+      token_response_body.delete('encounter')
+
+      result = run(runnable,
+                   udap_fhir_base_url:,
+                   access_token:,
+                   udap_registration_scope_auth_code_flow:,
+                   token_response_body: JSON.generate(token_response_body))
+      expect(result.result).to eq('skip')
       expect(result.result_message).to match(/did not contain `encounter` field/)
     end
   end
