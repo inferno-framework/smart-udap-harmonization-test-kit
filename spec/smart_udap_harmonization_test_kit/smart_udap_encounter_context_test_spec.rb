@@ -98,7 +98,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_EncounterContextTest 
         expect(result.result).to eq('pass')
       end
 
-      it 'passes if encounter omitted from received scopes' do
+      it 'passes if encounter omitted from received scopes but issues warning' do
         stub_request(:get, 'https://example.com/Encounter/EXAMPLE_ENCOUNTER')
           .to_return(status: 200, body: FHIR::Encounter.new(id: encounter_id).to_json, headers: {})
 
@@ -109,6 +109,16 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_EncounterContextTest 
                      access_token:,
                      udap_registration_scope_auth_code_flow:,
                      token_response_body: JSON.generate(token_response_body))
+
+        warning_messages = Inferno::Repositories::Messages.new.messages_for_result(result.id).filter do |message|
+          message.type == 'warning'
+        end
+
+        expect(warning_messages).to be_any do |wm|
+          wm.message.include? '`encounter` field is present in token response even though ' \
+                              '`launch`, `launch/encounter` was not received'
+        end
+
         expect(result.result).to eq('pass')
       end
     end
