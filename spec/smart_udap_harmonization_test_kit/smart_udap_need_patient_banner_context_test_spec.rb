@@ -49,8 +49,6 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_NeedPatientBannerCont
     expect(result.result_message).to match(/valid JSON/)
   end
 
-  # TODO: spec does not list this as required, should it omit instead of fail?
-  # https://hl7.org/fhir/smart-app-launch/STU2/scopes-and-launch-context.html#launch-context-arrives-with-your-access_token
   it 'fails if need_patient_banner context parameter not present in response body' do
     token_response_body.delete('need_patient_banner')
     result = run(runnable,

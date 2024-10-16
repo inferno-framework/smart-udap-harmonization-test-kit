@@ -49,9 +49,6 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_IntentContextTest do
     expect(result.result_message).to match(/valid JSON/)
   end
 
-  # TODO: spec lists intent as optional, is there a reason this should fail
-  # instead of omit?
-  # https://hl7.org/fhir/smart-app-launch/STU2/scopes-and-launch-context.html#launch-intent
   it 'fails if intent context parameter not present in response body' do
     token_response_body.delete('intent')
     result = run(runnable,

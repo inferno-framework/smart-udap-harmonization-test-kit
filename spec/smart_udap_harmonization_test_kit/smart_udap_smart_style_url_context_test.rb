@@ -50,8 +50,6 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_SmartStyleUrlContextT
     expect(result.result_message).to match(/valid JSON/)
   end
 
-  # TODO: spec lists this as experimental, should it omit instead of fail?
-  # https://hl7.org/fhir/smart-app-launch/STU2/scopes-and-launch-context.html#styling
   it 'fails if smart_style_url context parameter not present in response body' do
     token_response_body.delete('smart_style_url')
     result = run(runnable,

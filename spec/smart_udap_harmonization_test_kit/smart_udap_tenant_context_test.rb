@@ -49,8 +49,6 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TenantContextTest do
     expect(result.result_message).to match(/valid JSON/)
   end
 
-  # TODO: spec does not require tenant parameter, should this omit instead of fail?
-  # https://hl7.org/fhir/smart-app-launch/STU2/scopes-and-launch-context.html#launch-context-arrives-with-your-access_token
   it 'fails if tenant context parameter not present in response body' do
     token_response_body.delete('tenant')
     result = run(runnable,
