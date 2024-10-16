@@ -70,7 +70,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTes
     expect(result.result).to eq('pass')
   end
 
-  it 'passes when scopes are missing from response' do
+  it 'passes when scopes are missing from response but issues a warning' do
     correct_response['scope'] = 'openid fhirUser offline_access'
     result = run(runnable,
                  udap_token_endpoint:,
@@ -79,7 +79,14 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTes
                  token_response_body: JSON.generate(correct_response),
                  token_retrieval_time:)
 
-    # Is there a way to test for warnings?
+    warning_messages = Inferno::Repositories::Messages.new.messages_for_result(result.id).filter do |message|
+      message.type == 'warning'
+    end
+
+    expect(warning_messages).to be_any do |wm|
+      wm.message.include? "\nToken exchange response did not include all requested scopes.\nThese may have " \
+                          "been denied by user: `patient/*.read`.\n\n"
+    end
     expect(result.result).to eq('pass')
   end
 end
