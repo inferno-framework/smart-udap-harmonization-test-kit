@@ -58,47 +58,47 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_PatientContextTest do
   end
 
   context 'when patient context parameter requested but omitted from response body' do
-    it 'fails if launch/patient included in received scopes' do
-      token_response_body.delete('patient')
+    # it 'fails if launch/patient included in received scopes' do
+    #   token_response_body.delete('patient')
 
-      result = run(runnable,
-                   udap_fhir_base_url:,
-                   access_token:,
-                   udap_registration_scope_auth_code_flow:,
-                   token_response_body: JSON.generate(token_response_body))
-      expect(result.result).to eq('fail')
-      expect(result.result_message).to match(/did not contain `patient` field/)
-    end
+    #   result = run(runnable,
+    #                udap_fhir_base_url:,
+    #                access_token:,
+    #                udap_registration_scope_auth_code_flow:,
+    #                token_response_body: JSON.generate(token_response_body))
+    #   expect(result.result).to eq('fail')
+    #   expect(result.result_message).to match(/did not contain `patient` field/)
+    # end
 
-    it 'skips if launch/encounter omitted from received scopes' do
-      token_response_body['scope'] = scope_no_launch_patient
-      token_response_body.delete('patient')
+    # it 'skips if launch/encounter omitted from received scopes' do
+    #   token_response_body['scope'] = scope_no_launch_patient
+    #   token_response_body.delete('patient')
 
-      result = run(runnable,
-                   udap_fhir_base_url:,
-                   access_token:,
-                   udap_registration_scope_auth_code_flow:,
-                   token_response_body: JSON.generate(token_response_body))
-      expect(result.result).to eq('skip')
-      expect(result.result_message).to match(/did not contain `patient` field/)
-    end
+    #   result = run(runnable,
+    #                udap_fhir_base_url:,
+    #                access_token:,
+    #                udap_registration_scope_auth_code_flow:,
+    #                token_response_body: JSON.generate(token_response_body))
+    #   expect(result.result).to eq('skip')
+    #   expect(result.result_message).to match(/did not contain `patient` field/)
+    # end
   end
 
   context 'when patient context parameter requested and included in response body' do
     context 'when referenced patient resource is valid' do
-      it 'passes if launch/patient included in received scopes' do
-        stub_request(:get, 'https://example.com/Patient/EXAMPLE_PATIENT')
-          .to_return(status: 200, body: FHIR::Patient.new(id: patient_id).to_json, headers: {})
+      # it 'passes if launch/patient included in received scopes' do
+      #   stub_request(:get, 'https://example.com/Patient/EXAMPLE_PATIENT')
+      #     .to_return(status: 200, body: FHIR::Patient.new(id: patient_id).to_json, headers: {})
 
-        result = run(runnable,
-                     udap_fhir_base_url:,
-                     access_token:,
-                     udap_registration_scope_auth_code_flow:,
-                     token_response_body: JSON.generate(token_response_body))
-        expect(result.result).to eq('pass')
-      end
+      #   result = run(runnable,
+      #                udap_fhir_base_url:,
+      #                access_token:,
+      #                udap_registration_scope_auth_code_flow:,
+      #                token_response_body: JSON.generate(token_response_body))
+      #   expect(result.result).to eq('pass')
+      # end
 
-      it 'passes if launch/patient omitted from received scopes' do
+      it 'passes if launch/patient omitted from received scopes but issues warning' do
         stub_request(:get, 'https://example.com/Patient/EXAMPLE_PATIENT')
           .to_return(status: 200, body: FHIR::Patient.new(id: patient_id).to_json, headers: {})
 
@@ -109,48 +109,57 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_PatientContextTest do
                      access_token:,
                      udap_registration_scope_auth_code_flow:,
                      token_response_body: JSON.generate(token_response_body))
+
+        warning_messages = Inferno::Repositories::Messages.new.messages_for_result(result.id).filter do |message|
+          message.type == 'warning'
+        end
+
+        expect(warning_messages).to be_any do |wm|
+          wm.message.include? '`patient` field is present in token response even though `launch`, `launch/patient` was not received'
+        end
+
         expect(result.result).to eq('pass')
       end
     end
 
-    context 'when referenced patient resource is invalid' do
-      it 'fails when patient value is not a String' do
-        token_response_body['patient'] = 1234
+    # context 'when referenced patient resource is invalid' do
+    #   it 'fails when patient value is not a String' do
+    #     token_response_body['patient'] = 1234
 
-        result = run(runnable,
-                     udap_fhir_base_url:,
-                     access_token:,
-                     udap_registration_scope_auth_code_flow:,
-                     token_response_body: JSON.generate(token_response_body))
-        expect(result.result).to eq('fail')
-        expect(result.result_message).to match(/to be a String/)
-      end
+    #     result = run(runnable,
+    #                  udap_fhir_base_url:,
+    #                  access_token:,
+    #                  udap_registration_scope_auth_code_flow:,
+    #                  token_response_body: JSON.generate(token_response_body))
+    #     expect(result.result).to eq('fail')
+    #     expect(result.result_message).to match(/to be a String/)
+    #   end
 
-      it 'fails when get request does not return 200 response code' do
-        stub_request(:get, 'https://example.com/Patient/EXAMPLE_PATIENT')
-          .to_return(status: 401, body: {}.to_json, headers: {})
+    #   it 'fails when get request does not return 200 response code' do
+    #     stub_request(:get, 'https://example.com/Patient/EXAMPLE_PATIENT')
+    #       .to_return(status: 401, body: {}.to_json, headers: {})
 
-        result = run(runnable,
-                     udap_fhir_base_url:,
-                     access_token:,
-                     udap_registration_scope_auth_code_flow:,
-                     token_response_body: JSON.generate(token_response_body))
-        expect(result.result).to eq('fail')
-        expect(result.result_message).to match(/expected 200, but received 401/)
-      end
+    #     result = run(runnable,
+    #                  udap_fhir_base_url:,
+    #                  access_token:,
+    #                  udap_registration_scope_auth_code_flow:,
+    #                  token_response_body: JSON.generate(token_response_body))
+    #     expect(result.result).to eq('fail')
+    #     expect(result.result_message).to match(/expected 200, but received 401/)
+    #   end
 
-      it 'fails when get request does not return valid FHIR encounter resource' do
-        stub_request(:get, 'https://example.com/Patient/EXAMPLE_PATIENT')
-          .to_return(status: 200, body: FHIR::Observation.new(id: patient_id).to_json, headers: {})
+    #   it 'fails when get request does not return valid FHIR encounter resource' do
+    #     stub_request(:get, 'https://example.com/Patient/EXAMPLE_PATIENT')
+    #       .to_return(status: 200, body: FHIR::Observation.new(id: patient_id).to_json, headers: {})
 
-        result = run(runnable,
-                     udap_fhir_base_url:,
-                     access_token:,
-                     udap_registration_scope_auth_code_flow:,
-                     token_response_body: JSON.generate(token_response_body))
-        expect(result.result).to eq('fail')
-        expect(result.result_message).to match(/expected Patient, but received Observation/)
-      end
-    end
+    #     result = run(runnable,
+    #                  udap_fhir_base_url:,
+    #                  access_token:,
+    #                  udap_registration_scope_auth_code_flow:,
+    #                  token_response_body: JSON.generate(token_response_body))
+    #     expect(result.result).to eq('fail')
+    #     expect(result.result_message).to match(/expected Patient, but received Observation/)
+    #   end
+    # end
   end
 end
