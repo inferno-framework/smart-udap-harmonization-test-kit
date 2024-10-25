@@ -1,11 +1,13 @@
 require 'udap_security_test_kit/discovery_group'
 require 'udap_security_test_kit/dynamic_client_registration_group'
-require 'smart_app_launch/openid_connect_group'
 require 'smart_app_launch/token_refresh_group'
-require_relative 'harmonization_authorization_code_authentication_group'
+
+require_relative 'smart_udap_authorization_code_authentication_group'
+require_relative 'smart_udap_launch_context_group'
+require_relative 'smart_udap_openid_connect_group'
 
 module SMART_UDAP_HarmonizationTestKit
-  class HarmonziationAuthorizationCodeGroup < Inferno::TestGroup
+  class SMART_UDAP_Authorization_Code_Group < Inferno::TestGroup
     title 'UDAP Authorization Code Flow'
     description %(
       This group tests UDAP servers that support JWT authentication using an OAuth2.0 authorization_code grant flow and
@@ -15,13 +17,16 @@ module SMART_UDAP_HarmonizationTestKit
       2. Dynamic Client Registration
       3. Authorization and Authentication with SMART App Launch compliant scopes.
 
-      There are also two additional test groups to assess conformance with SMART scopes:
-      4. OpenID Connect - these tests will be executed if the `openid` scope was requested in step 3 and an ID token
+      There are also three additional test groups to assess conformance with SMART scopes:
+
+      4. SMART/UDAP Launch Context - these tests will validate any SMART launch context parameters returned by the
+      authorization server
+      5. OpenID Connect - these tests will be executed if the `openid` scope was requested in step 3 and an ID token
       returned along with the access token
-      5. Token Refresh - these tests will be executed if the `offline_access` or `online_access` scopes were requested
+      6. Token Refresh - these tests will be executed if the `offline_access` or `online_access` scopes were requested
       and in step 3 and a refresh token was returned along with the original access token
     )
-    id :harmonization_authorization_code_group
+    id :smart_udap_authorization_code_group
 
     input_instructions %(
       **Discovery Tests**
@@ -105,23 +110,14 @@ module SMART_UDAP_HarmonizationTestKit
                   :udap_jwt_signing_alg, :udap_registration_certifications_auth_code_flow
     end
 
-    group from: :harmonization_authorization_code_authentication_group
+    group from: :smart_udap_authorization_code_authentication_group
 
-    group from: :smart_openid_connect,
-          config: {
-            inputs: {
-              client_id: {
-                name: :udap_client_id
-              },
-              requested_scopes: {
-                name: :udap_registration_scope_auth_code_flow
-              },
-              url: {
-                name: :udap_fhir_base_url
-              }
-            }
-          }
+    group from: :smart_udap_launch_context
 
+    group from: :smart_udap_openid_connect,
+          optional: true
+
+    # TODO: add in support for token refresh in FI-3248
     group do
       title 'TODO: Support for Token Refresh'
       optional

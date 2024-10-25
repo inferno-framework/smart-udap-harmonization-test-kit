@@ -1,14 +1,16 @@
 module SMART_UDAP_HarmonizationTestKit
-  class HarmonizationAuthorizationCodeRedirectTest < Inferno::Test
+  class SMART_UDAP_AuthorizationCodeRedirectTest < Inferno::Test
     title 'Authorization server redirects client to redirect URI with SMART scopes'
-    id :harmonization_authorization_code_redirect
+    id :smart_udap_authorization_code_redirect
     description %(
         Per [RFC 6749 OAuth 2.0 Authorization Framework Section 4.1.1](https://datatracker.ietf.org/doc/html/rfc6749#section-4.1.1),
         once the server validates the client's authorization request, the authorization server directs the user-agent to
         the provided client redirection URI using an HTTP redirection response.
       )
 
-    input :udap_fhir_base_url
+    input :udap_fhir_base_url,
+          title: 'FHIR Server Base URL',
+          description: 'Base FHIR URL of FHIR Server. Value for the aud parameter in the redirect URI.'
 
     input :udap_authorization_endpoint,
           title: 'Authorization Endpoint',
@@ -21,7 +23,7 @@ module SMART_UDAP_HarmonizationTestKit
     input :udap_registration_scope_auth_code_flow,
           title: 'Requested Scopes',
           description: 'A list of space-separated scopes.',
-          default: 'openid fhirUser offline_access patient/*.read'
+          default: 'launch/patient openid fhirUser offline_access patient/*.read'
 
     output :udap_authorization_code_state
 
@@ -54,6 +56,11 @@ module SMART_UDAP_HarmonizationTestKit
     end
 
     run do
+      assert_valid_http_uri(
+        udap_authorization_endpoint,
+        "OAuth2 Authorization Endpoint '#{udap_authorization_endpoint}' is not a valid URI"
+      )
+
       output udap_authorization_code_state: SecureRandom.uuid
 
       oauth2_params = {

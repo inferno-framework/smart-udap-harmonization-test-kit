@@ -1,10 +1,10 @@
 require 'smart_app_launch/token_payload_validation'
 
 module SMART_UDAP_HarmonizationTestKit
-  class HarmonizationTokenResponseScopeTest < Inferno::Test
+  class SMART_UDAP_TokenResponseScopeTest < Inferno::Test
     include SMARTAppLaunch::TokenPayloadValidation
     title 'Token exchange reponse body includes required content for SMART scopes'
-    id :harmonization_token_response_scope
+    id :smart_udap_token_response_scope
     description %(
         In addition to the baseline UDAP requirements for the token exchange response body, this test verifies that the
         scope parameter is included in the response body and issues a warning if any of the requested scopes are
@@ -12,7 +12,7 @@ module SMART_UDAP_HarmonizationTestKit
       )
 
     input :token_response_body,
-          :udap_registration_requested_scope,
+          :udap_registration_scope_auth_code_flow,
           :token_retrieval_time,
           :udap_token_endpoint,
           :udap_client_id
@@ -28,6 +28,7 @@ module SMART_UDAP_HarmonizationTestKit
            :received_scopes
 
     run do
+      assert_valid_json(token_response_body)
       token_response_body_parsed = JSON.parse(token_response_body)
 
       output smart_credentials: {
@@ -50,7 +51,7 @@ module SMART_UDAP_HarmonizationTestKit
 
       assert received_scopes.present?, 'Token exchange response does not include the `scope` parameter'
 
-      check_for_missing_scopes(udap_registration_requested_scope, token_response_body_parsed)
+      check_for_missing_scopes(udap_registration_scope_auth_code_flow, token_response_body_parsed)
     end
   end
 end
