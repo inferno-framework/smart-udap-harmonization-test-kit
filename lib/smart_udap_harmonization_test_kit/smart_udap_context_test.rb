@@ -74,11 +74,10 @@ module SMART_UDAP_HarmonizationTestKit
           info "`#{context_field_name}` field is present in token response even though " \
                "#{missing_requested_scopes_string} was not requested"
         end
+
         if missing_received_context_scopes?
-          warning do
-            assert false,
-                   "`#{context_field_name}` field is present in token response even though #{missing_received_scopes_string} was not received"
-          end
+          warning "`#{context_field_name}` field is present in token response even though " \
+                  "#{missing_received_scopes_string} was not received"
         end
       end
 
