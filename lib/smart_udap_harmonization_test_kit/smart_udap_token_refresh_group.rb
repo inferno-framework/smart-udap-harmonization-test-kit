@@ -1,3 +1,5 @@
+require_relative 'smart_udap_token_refresh_test'
+
 module SMART_UDAP_HarmonizationTestKit
   class SMART_UDAP_TokenRefreshGroup < Inferno::TestGroup
     title 'Support for Token Refresh'
@@ -22,5 +24,7 @@ module SMART_UDAP_HarmonizationTestKit
       authentication tests. They will attempt to exchange the refresh token for a new access token via a POST request
       to the token exchange endpoint and then verify the information returned as done in Section 1.3 tests 4-6.
     )
+
+    test from: :smart_udap_token_refresh
   end
 end
