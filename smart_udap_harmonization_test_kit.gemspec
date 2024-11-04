@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.license       = 'Apache-2.0'
   spec.add_dependency 'inferno_core', '~> 0.4.38'
   spec.add_dependency 'smart_app_launch_test_kit', '~> 0.4.3'
-  spec.add_dependency 'udap_security_test_kit', '~> 0.9.0'
+  spec.add_dependency 'udap_security_test_kit', '~> 0.10.0'
   spec.add_development_dependency 'database_cleaner-sequel', '~> 1.8'
   spec.add_development_dependency 'factory_bot', '~> 6.1'
   spec.add_development_dependency 'rack-test', '~> 1.1.0'
