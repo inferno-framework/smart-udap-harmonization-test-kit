@@ -15,7 +15,7 @@ module SMART_UDAP_HarmonizationTestKit
           title: 'UDAP Client ID'
         },
         requested_scopes: {
-          name: :udap_registration_scope_auth_code_flow,
+          name: :udap_auth_code_flow_registration_scope,
           title: 'Requested Scopes',
           description: 'Scopes client requested from the authorization server during the authorization step.'
         },

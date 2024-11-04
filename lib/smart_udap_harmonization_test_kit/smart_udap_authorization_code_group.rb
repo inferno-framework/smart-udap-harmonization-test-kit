@@ -75,7 +75,7 @@ module SMART_UDAP_HarmonizationTestKit
                 title: 'Authorization Code JWT Issuer (iss) Claim'
               },
               udap_registration_requested_scope: {
-                name: :udap_registration_scope_auth_code_flow,
+                name: :udap_auth_code_flow_registration_scope,
                 title: 'Authorization Code Registration Requested Scope(s)',
                 description: %(
                   String containing a space delimited list of scopes requested by the client application for use in
@@ -106,7 +106,7 @@ module SMART_UDAP_HarmonizationTestKit
                   :udap_auth_code_flow_client_cert_pem,
                   :udap_auth_code_flow_client_private_key,
                   :udap_auth_code_flow_cert_iss,
-                  :udap_registration_scope_auth_code_flow,
+                  :udap_auth_code_flow_registration_scope,
                   :udap_jwt_signing_alg, :udap_registration_certifications_auth_code_flow
     end
 
