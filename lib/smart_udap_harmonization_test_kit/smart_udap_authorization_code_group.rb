@@ -85,7 +85,7 @@ module SMART_UDAP_HarmonizationTestKit
                 )
               },
               udap_registration_certifications: {
-                name: :udap_registration_certifications_auth_code_flow,
+                name: :udap_auth_code_flow_registration_certifications,
                 title: 'Authorization Code UDAP Registration Certifications'
               }
             },
@@ -107,7 +107,7 @@ module SMART_UDAP_HarmonizationTestKit
                   :udap_auth_code_flow_client_private_key,
                   :udap_auth_code_flow_cert_iss,
                   :udap_auth_code_flow_registration_scope,
-                  :udap_jwt_signing_alg, :udap_registration_certifications_auth_code_flow
+                  :udap_jwt_signing_alg, :udap_auth_code_flow_registration_certifications
     end
 
     group from: :smart_udap_authorization_code_authentication_group
