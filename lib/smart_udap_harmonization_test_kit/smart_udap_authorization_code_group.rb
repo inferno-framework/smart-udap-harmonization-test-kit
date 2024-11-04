@@ -63,7 +63,7 @@ module SMART_UDAP_HarmonizationTestKit
                 locked: true
               },
               udap_client_cert_pem: {
-                name: :udap_client_cert_pem_auth_code_flow,
+                name: :udap_auth_code_flow_client_cert_pem,
                 title: 'Authorization Code Client Certificate(s) (PEM Format)'
               },
               udap_client_private_key_pem: {
@@ -91,7 +91,7 @@ module SMART_UDAP_HarmonizationTestKit
             },
             outputs: {
               udap_client_cert_pem: {
-                name: :udap_client_cert_pem_auth_code_flow
+                name: :udap_auth_code_flow_client_cert_pem
               },
               udap_client_private_key_pem: {
                 name: :udap_client_private_key_auth_code_flow
@@ -103,7 +103,7 @@ module SMART_UDAP_HarmonizationTestKit
           } do
       input_order :udap_registration_endpoint,
                   :reg_grant_type_auth_code,
-                  :udap_client_cert_pem_auth_code_flow,
+                  :udap_auth_code_flow_client_cert_pem,
                   :udap_client_private_key_auth_code_flow,
                   :udap_cert_iss_auth_code_flow,
                   :udap_registration_scope_auth_code_flow,
