@@ -25,6 +25,10 @@ module SMART_UDAP_HarmonizationTestKit
       to the token exchange endpoint and then verify the information returned as done in Section 1.3 tests 4-6.
     )
 
+    # TODO: add in a setup test here that will parse out the refresh token and
+    # received scopes for the group
+
+    # TODO: add subgroups here for with/without scopes (just update a config variable)
     test from: :smart_udap_token_refresh
   end
 end
