@@ -42,7 +42,7 @@ module SMART_UDAP_HarmonizationTestKit
                name: :authorization_code_token_response_body
              },
              udap_registration_requested_scope: {
-               name: :udap_registration_scope_auth_code_flow
+               name: :udap_auth_code_flow_registration_scope
              }
            }
          }

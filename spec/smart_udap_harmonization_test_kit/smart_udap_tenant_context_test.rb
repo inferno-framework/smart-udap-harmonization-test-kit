@@ -5,14 +5,14 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TenantContextTest do
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
   let(:results_repo) { Inferno::Repositories::Results.new }
   let(:test_session) { repo_create(:test_session, test_suite_id: 'smart_udap_harmonization') }
-  let(:udap_registration_scope_auth_code_flow) { 'launch/patient openid fhirUser offline_access patient/*.read' }
+  let(:udap_auth_code_flow_registration_scope) { 'launch/patient openid fhirUser offline_access patient/*.read' }
   let(:token_response_body) do
     {
       'access_token' => 'example_access_token',
       'refresh_token' => 'example_refresh_token',
       'id_token' => 'example_id_token',
       'token_type' => 'Bearer',
-      'scope' => udap_registration_scope_auth_code_flow,
+      'scope' => udap_auth_code_flow_registration_scope,
       'expires_in' => 3600,
       'patient' => 'EXAMPLE_PATIENT',
       'tenant' => 'EXAMPLE_TENANT'
@@ -35,7 +35,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TenantContextTest do
 
   it 'skips if response body is not present' do
     result = run(runnable,
-                 udap_registration_scope_auth_code_flow:,
+                 udap_auth_code_flow_registration_scope:,
                  token_response_body: '')
     expect(result.result).to eq('skip')
   end
@@ -43,7 +43,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TenantContextTest do
   it 'fails if response body is not valid JSON' do
     invalid_response_body = '{invalid_key: invalid_value}'
     result = run(runnable,
-                 udap_registration_scope_auth_code_flow:,
+                 udap_auth_code_flow_registration_scope:,
                  token_response_body: invalid_response_body)
     expect(result.result).to eq('fail')
     expect(result.result_message).to match(/valid JSON/)
@@ -52,7 +52,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TenantContextTest do
   it 'fails if tenant context parameter not present in response body' do
     token_response_body.delete('tenant')
     result = run(runnable,
-                 udap_registration_scope_auth_code_flow:,
+                 udap_auth_code_flow_registration_scope:,
                  token_response_body: JSON.generate(token_response_body))
 
     expect(result.result).to eq('fail')
@@ -62,7 +62,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TenantContextTest do
   it 'fails if tenant launch context parameter value is not a String' do
     token_response_body['intent'] = 1234
     result = run(runnable,
-                 udap_registration_scope_auth_code_flow:,
+                 udap_auth_code_flow_registration_scope:,
                  token_response_body: JSON.generate(token_response_body))
 
     expect(result.result).to eq('fail')
@@ -71,7 +71,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TenantContextTest do
 
   it 'passes when tenant launch context parameter is a String' do
     result = run(runnable,
-                 udap_registration_scope_auth_code_flow:,
+                 udap_auth_code_flow_registration_scope:,
                  token_response_body: JSON.generate(token_response_body))
 
     expect(result.result).to eq('pass')

@@ -15,7 +15,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_AuthorizationCodeRedi
     {
       udap_fhir_base_url:,
       udap_client_id: 'CLIENT_ID',
-      udap_registration_scope_auth_code_flow: 'REQUESTED_SCOPES',
+      udap_auth_code_flow_registration_scope: 'REQUESTED_SCOPES',
       udap_authorization_endpoint: 'http://example.com/auth'
     }
   end
