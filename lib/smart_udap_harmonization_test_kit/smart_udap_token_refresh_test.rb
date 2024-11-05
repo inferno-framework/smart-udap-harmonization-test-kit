@@ -6,6 +6,49 @@ module SMART_UDAP_HarmonizationTestKit
     title 'Server successfully refreshes the access token'
     id :smart_udap_token_refresh
 
+    scopes_included_description = %(
+      * Scopes are included in the request (TODO)
+    )
+
+    scopes_omitted_description = %(
+      * Scopes are not included in the request (TODO)
+    )
+
+    scopes_description = if config.options[:include_scopes]
+                           scopes_included_description
+                         else
+                           scopes_omitted_description
+                         end
+
+    description %(
+      This test will attempt to exchange the refresh token received in the original token exchange for a new access
+      token. The test will omit if no refresh token was granted during the token exchange test.
+
+      The [HL7 UDAP STU1.0 IG Section on Refresh Tokens](https://hl7.org/fhir/us/udap-security/STU1/consumer.html#refresh-tokens)
+      defers to the refresh token exchange requirements outlined in [Section 6 of RFC 6749](https://datatracker.ietf.org/doc/html/rfc6749#section-6),
+      which states:
+      > If the client type is confidential or
+        the client was issued client credentials (or assigned other
+        authentication requirements), the client MUST authenticate with the
+        authorization server as described in [Section 3.2.1](https://datatracker.ietf.org/doc/html/rfc6749#section-3.2.1).
+
+      RFC 6749 section 3.2.1 references [section 2.3](https://datatracker.ietf.org/doc/html/rfc6749#section-2.3), which
+      states:
+      > The client and authorization
+        server establish a client authentication method suitable for the
+        security requirements of the authorization server.  The authorization
+        server MAY accept any form of client authentication meeting its
+        security requirements.
+
+      Therefore, Inferno will authenticate to the authorization server using the same UDAP authentication method
+      described in the [HL7 UDAP Consumer Facing Authentication Section 4.2](https://hl7.org/fhir/us/udap-security/STU1/consumer.html#obtaining-an-access-token),
+      with the following changes:
+      * `code` and `redirect_uri` parameters are omitted
+      * `grant_type` is set to `refresh_token` per [Section 6 of RFC 6749](https://datatracker.ietf.org/doc/html/rfc6749#section-6)
+      * `refresh_token` is included
+      #{scopes_description}
+    )
+
     input :udap_client_id,
           title: 'Client ID'
 
@@ -13,11 +56,13 @@ module SMART_UDAP_HarmonizationTestKit
           title: 'Token Endpoint',
           description: 'The full URL from which Inferno will request to exchange a refresh token for a new access token'
 
-    # TODO: move this to the group level and parse it out there instead of
-    # repeating it here?
-    input :token_exchange_response_body,
-          title: 'Token Exchange Response Body',
+    input :udap_refresh_token,
+          title: 'Refresh Token',
           type: 'textarea'
+
+    input :udap_received_scopes,
+          title: 'Requested Scopes',
+          description: 'A list of scopes to request during'
 
     input :udap_auth_code_flow_client_cert_pem,
           title: 'X.509 Client Certificate (PEM Format)',
@@ -58,7 +103,8 @@ module SMART_UDAP_HarmonizationTestKit
     makes_request :smart_udap_token_refresh_request
 
     run do
-      # TODO: omit if refresh token not present
+      omit_if !udap_refresh_token.present?
+
       client_assertion_payload = UDAPClientAssertionPayloadBuilder.build(
         iss: udap_client_id,
         aud: udap_token_endpoint,
@@ -74,12 +120,11 @@ module SMART_UDAP_HarmonizationTestKit
         x5c_certs_pem_string: x5c_certs
       )
 
-      # TODO: change nil values to correct inputs once gem updated
       token_refresh_headers, token_refresh_body =
         SMART_UDAP_RequestBuilder.build_token_refresh_request(
           client_assertion_jwt:,
-          refresh_token: nil,
-          requested_scopes: nil
+          refresh_token: udap_refresh_token,
+          requested_scopes: udap_received_scopes
         )
 
       post(udap_token_endpoint,
