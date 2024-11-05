@@ -20,7 +20,7 @@ module SMART_UDAP_HarmonizationTestKit
           title: 'Client ID',
           description: 'Client ID as registered with the authorization server.'
 
-    input :udap_registration_scope_auth_code_flow,
+    input :udap_auth_code_flow_registration_scope,
           title: 'Requested Scopes',
           description: 'A list of space-separated scopes.',
           default: 'launch/patient openid fhirUser offline_access patient/*.read'
@@ -67,7 +67,7 @@ module SMART_UDAP_HarmonizationTestKit
         'response_type' => 'code',
         'client_id' => udap_client_id,
         'redirect_uri' => config.options[:redirect_uri],
-        'scope' => udap_registration_scope_auth_code_flow,
+        'scope' => udap_auth_code_flow_registration_scope,
         'state' => udap_authorization_code_state,
         'aud' => udap_fhir_base_url
       }.compact
