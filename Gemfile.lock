@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     smart_udap_harmonization_test_kit (0.0.1)
-      inferno_core (~> 0.4.38)
+      inferno_core (~> 0.5.0)
       smart_app_launch_test_kit (~> 0.4.3)
       udap_security_test_kit (~> 0.10.0)
 
@@ -138,7 +138,7 @@ GEM
     httpclient (2.8.3)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
-    inferno_core (0.4.44)
+    inferno_core (0.5.0)
       activesupport (~> 6.1.7.5)
       base62-rb (= 0.3.1)
       blueprinter (= 0.25.2)

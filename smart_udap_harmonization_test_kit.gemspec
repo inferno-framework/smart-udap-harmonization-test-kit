@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'Test Kit for integrating SMART App Launch and UDAP Security IGs'
   # spec.homepage      = 'TODO'
   spec.license       = 'Apache-2.0'
-  spec.add_dependency 'inferno_core', '~> 0.4.38'
+  spec.add_dependency 'inferno_core', '~> 0.5.0'
   spec.add_dependency 'smart_app_launch_test_kit', '~> 0.4.3'
   spec.add_dependency 'udap_security_test_kit', '~> 0.10.0'
   spec.add_development_dependency 'database_cleaner-sequel', '~> 1.8'
