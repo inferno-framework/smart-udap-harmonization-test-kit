@@ -89,8 +89,6 @@ module SMART_UDAP_HarmonizationTestKit
     makes_request :smart_udap_token_refresh_request
 
     run do
-      omit_if !udap_refresh_token.present?
-
       client_assertion_payload = UDAPSecurityTestKit::UDAPClientAssertionPayloadBuilder.build(
         udap_client_id,
         udap_token_endpoint,
