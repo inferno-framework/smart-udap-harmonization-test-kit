@@ -1,4 +1,5 @@
 require_relative 'smart_udap_token_refresh_test'
+require_relative 'smart_udap_token_response_scope_test'
 require 'udap_security_test_kit/token_exchange_response_body_test'
 require 'udap_security_test_kit/token_exchange_response_headers_test'
 
@@ -49,6 +50,21 @@ module SMART_UDAP_HarmonizationTestKit
            inputs: {
              token_response_body: {
                name: :smart_udap_token_refresh_response_body
+             }
+           }
+         }
+
+    test from: :smart_udap_token_response_scope,
+         config: {
+           inputs: {
+             token_response_body: {
+               name: :smart_udap_token_refresh_response_body
+             },
+             udap_auth_code_flow_registration_scope: {
+               name: :udap_received_scopes
+             },
+             token_retrieval_time: {
+               name: :smart_udap_refresh_token_retrieval_time
              }
            }
          }

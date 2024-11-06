@@ -17,7 +17,6 @@ module SMART_UDAP_HarmonizationTestKit
           :udap_token_endpoint,
           :udap_client_id
 
-    # TODO: omitted intent, would any other of these not apply in a UDAP context?
     output :smart_credentials,
            :id_token,
            :refresh_token,

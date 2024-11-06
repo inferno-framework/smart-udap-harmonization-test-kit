@@ -1,5 +1,6 @@
 require_relative 'smart_udap_token_refresh_test'
 require_relative 'smart_udap_token_refresh_with_scopes_group'
+require_relative 'smart_udap_token_response_scope_test'
 require 'udap_security_test_kit/token_exchange_response_body_test'
 require 'udap_security_test_kit/token_exchange_response_headers_test'
 
@@ -22,13 +23,37 @@ module SMART_UDAP_HarmonizationTestKit
       #{scopes_omitted_description}
     )
 
-    test from: :smart_udap_token_refresh
+    test from: :smart_udap_token_refresh,
+         config: {
+           inputs: {
+             udap_received_scopes: {
+               locked: true,
+               description: 'Will be omitted in refresh request.'
+             }
+           }
+         }
 
     test from: :udap_token_exchange_response_body,
          config: {
            inputs: {
              token_response_body: {
                name: :smart_udap_token_refresh_response_body
+             }
+           }
+         }
+
+    test from: :smart_udap_token_response_scope,
+         config: {
+           inputs: {
+             token_response_body: {
+               name: :smart_udap_token_refresh_response_body
+             },
+             udap_auth_code_flow_registration_scope: {
+               name: :udap_received_scopes,
+               locked: true
+             },
+             token_retrieval_time: {
+               name: :smart_udap_refresh_token_retrieval_time
              }
            }
          }
