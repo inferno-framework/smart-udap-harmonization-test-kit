@@ -1,4 +1,6 @@
 require_relative 'smart_udap_token_refresh_test'
+require 'udap_security_test_kit/token_exchange_response_body_test'
+require 'udap_security_test_kit/token_exchange_response_headers_test'
 
 module SMART_UDAP_HarmonizationTestKit
   class SMART_UDAP_TokenRefreshGroup < Inferno::TestGroup
@@ -25,10 +27,22 @@ module SMART_UDAP_HarmonizationTestKit
       to the token exchange endpoint and then verify the information returned as done in Section 1.3 tests 4-6.
     )
 
-    # TODO: add in a setup test here that will parse out the refresh token and
-    # received scopes for the group
-
-    # TODO: add subgroups here for with/without scopes (just update a config variable)
     test from: :smart_udap_token_refresh
+
+    test from: :udap_token_exchange_response_body,
+         config: {
+           inputs: {
+             token_response_body: {
+               name: :smart_udap_token_refresh_response_body
+             }
+           }
+         }
+
+    test from: :udap_token_exchange_response_headers,
+         config: {
+           requests: {
+             name: :smart_udap_token_refresh_request
+           }
+         }
   end
 end
