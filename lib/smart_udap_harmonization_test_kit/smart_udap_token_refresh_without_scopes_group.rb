@@ -9,7 +9,12 @@ module SMART_UDAP_HarmonizationTestKit
     id :smart_udap_token_refresh_without_scopes
 
     scopes_omitted_description = %(
-      All the details here about why scopes aren't included.
+      The optional `scope` parameter will not be inclued in the token exchange request. [RFC 6749 Section 6](https://datatracker.ietf.org/doc/html/rfc6749#section-6)
+      states:
+      > The requested scope MUST NOT include any scope
+        not originally granted by the resource owner, and *if omitted is
+        treated as equal to the scope originally granted by the
+        resource owner*.
     )
 
     description %(

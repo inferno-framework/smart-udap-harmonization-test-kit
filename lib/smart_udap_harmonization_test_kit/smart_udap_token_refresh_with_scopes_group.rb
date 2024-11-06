@@ -30,7 +30,8 @@ module SMART_UDAP_HarmonizationTestKit
     end
 
     scopes_included_description = %(
-      All the details about including scopes presented here!
+      In the token exchange request, the optional `scope` parameter will be included. The requested scopes will default
+      to those granted by the authorization server in the initial token exchange request.
     )
 
     description %(
