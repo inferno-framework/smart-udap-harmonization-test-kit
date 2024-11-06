@@ -1,11 +1,11 @@
 require 'udap_security_test_kit/discovery_group'
 require 'udap_security_test_kit/dynamic_client_registration_group'
-require 'smart_app_launch/token_refresh_group'
 
 require_relative 'smart_udap_authorization_code_authentication_group'
 require_relative 'smart_udap_launch_context_group'
 require_relative 'smart_udap_openid_connect_group'
-require_relative 'smart_udap_token_refresh_group'
+require_relative 'smart_udap_token_refresh_with_scopes_group'
+require_relative 'smart_udap_token_refresh_without_scopes_group'
 
 module SMART_UDAP_HarmonizationTestKit
   class SMART_UDAP_Authorization_Code_Group < Inferno::TestGroup
@@ -118,7 +118,10 @@ module SMART_UDAP_HarmonizationTestKit
     group from: :smart_udap_openid_connect,
           optional: true
 
-    group from: :smart_udap_token_refresh,
+    group from: :smart_udap_token_refresh_without_scopes,
+          optional: true
+
+    group from: :smart_udap_token_refresh_with_scopes,
           optional: true
   end
 end

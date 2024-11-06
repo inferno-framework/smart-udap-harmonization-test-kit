@@ -7,7 +7,8 @@ module SMART_UDAP_HarmonizationTestKit
     title 'Support for Token Refresh With Scopes'
     id :smart_udap_token_refresh_with_scopes
 
-    token_refresh_group_description = %(
+    def self.token_refresh_group_description
+      %(
       This group tests the ability of the system to successfully
       exchange a refresh token for an access token. Refresh tokens are typically
       longer lived than access tokens and allow client applications to obtain a
@@ -26,6 +27,7 @@ module SMART_UDAP_HarmonizationTestKit
       authentication tests. They will attempt to exchange the refresh token for a new access token via a POST request
       to the token exchange endpoint and then verify the information returned as done in Section 1.3 tests 4-6.
     )
+    end
 
     scopes_included_description = %(
       All the details about including scopes presented here!
