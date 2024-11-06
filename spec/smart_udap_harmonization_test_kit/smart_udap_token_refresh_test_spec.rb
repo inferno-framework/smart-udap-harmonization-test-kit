@@ -17,10 +17,11 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenRefreshTest do
 
   let(:base_url) { 'http://example.com/fhir' }
   let(:udap_token_endpoint) { 'http://example.com/token' }
+  let(:udap_refresh_token) { 'Example refresh token' }
 
   let(:input) do
     {
-      udap_refresh_token: 'Example refresh token',
+      udap_refresh_token:,
       udap_received_scopes: 'openid fhirUser offline_access patient/*.read',
       udap_token_endpoint:,
       udap_client_id: 'CLIENT_ID',
@@ -42,6 +43,22 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenRefreshTest do
       )
     end
     Inferno::TestRunner.new(test_session:, test_run:).run(runnable)
+  end
+
+  it 'skips if refresh token is not present' do
+    stub_request(:post, udap_token_endpoint)
+      .to_return(status: 200, body: {}.to_json)
+
+    result = run(runnable,
+                 udap_refresh_token: '',
+                 udap_received_scopes: 'scopes',
+                 udap_token_endpoint:,
+                 udap_client_id: 'CLIENT_ID',
+                 udap_auth_code_flow_client_cert_pem:,
+                 udap_auth_code_flow_client_private_key:,
+                 udap_jwt_signing_alg: 'RS256')
+
+    expect(result.result).to eq('skip')
   end
 
   it 'passes if the refresh token exchange response has a 200 status' do

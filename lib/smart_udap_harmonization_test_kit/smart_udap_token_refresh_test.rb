@@ -8,7 +8,7 @@ module SMART_UDAP_HarmonizationTestKit
 
     description %(
       This test will attempt to exchange the refresh token received in the original token exchange for a new access
-      token. The test will omit if no refresh token was granted during the token exchange test.
+      token. The test will skip if no refresh token was granted during the token exchange test.
 
       The [HL7 UDAP STU1.0 IG Section on Refresh Tokens](https://hl7.org/fhir/us/udap-security/STU1/consumer.html#refresh-tokens)
       defers to the refresh token exchange requirements outlined in [Section 6 of RFC 6749](https://datatracker.ietf.org/doc/html/rfc6749#section-6),
