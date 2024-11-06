@@ -1,4 +1,5 @@
 require_relative 'smart_udap_encounter_context_test'
+require_relative 'smart_udap_fhir_context_test'
 require_relative 'smart_udap_intent_context_test'
 require_relative 'smart_udap_need_patient_banner_context_test'
 require_relative 'smart_udap_patient_context_test'
@@ -18,13 +19,8 @@ module SMART_UDAP_HarmonizationTestKit
     test from: :smart_udap_encounter_context,
          optional: true
 
-    # TODO: FI-3281 implement fhirContext tests - deal with multi-version support or not?
-    test do
-      title 'TODO: Support for fhirContext'
-      optional
-
-      run { omit }
-    end
+    test from: :smart_udap_fhir_context,
+         optional: true
 
     test from: :smart_udap_need_patient_banner_context,
          optional: true
