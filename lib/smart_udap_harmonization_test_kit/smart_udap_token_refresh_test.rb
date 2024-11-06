@@ -91,28 +91,28 @@ module SMART_UDAP_HarmonizationTestKit
     run do
       omit_if !udap_refresh_token.present?
 
-      client_assertion_payload = UDAPClientAssertionPayloadBuilder.build(
-        iss: udap_client_id,
-        aud: udap_token_endpoint,
-        extensions: nil
+      client_assertion_payload = UDAPSecurityTestKit::UDAPClientAssertionPayloadBuilder.build(
+        udap_client_id,
+        udap_token_endpoint,
+        nil
       )
 
-      x5c_certs = UDAPJWTBuilder.split_user_input_cert_string(udap_auth_code_flow_client_cert_pem)
+      x5c_certs = UDAPSecurityTestKit::UDAPJWTBuilder.split_user_input_cert_string(udap_auth_code_flow_client_cert_pem)
 
-      client_assertion_jwt = UDAPJWTBuilder.encode_jwt_with_x5c_header(
-        payload: client_assertion_payload,
-        private_key: udap_auth_code_flow_client_private_key,
-        alg: udap_jwt_signing_alg,
-        x5c_certs_pem_string: x5c_certs
+      client_assertion_jwt = UDAPSecurityTestKit::UDAPJWTBuilder.encode_jwt_with_x5c_header(
+        client_assertion_payload,
+        udap_auth_code_flow_client_private_key,
+        udap_jwt_signing_alg,
+        x5c_certs
       )
 
       requested_scopes = (udap_received_scopes if config.options[:include_scopes])
 
       token_refresh_headers, token_refresh_body =
         SMART_UDAP_RequestBuilder.build_token_refresh_request(
-          client_assertion_jwt:,
-          refresh_token: udap_refresh_token,
-          requested_scopes: requested_scopes
+          client_assertion_jwt,
+          udap_refresh_token,
+          requested_scopes
         )
 
       post(udap_token_endpoint,
