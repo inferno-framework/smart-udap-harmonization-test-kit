@@ -7,11 +7,12 @@ module SMART_UDAP_HarmonizationTestKit
     id :smart_udap_token_refresh
 
     scopes_included_description = %(
-      * Scopes are included in the request (TODO)
+      * The optional `scope` parameter is included. This will default to the scopes granted in the original token
+      exchange unless the input value is modified by teh tester.
     )
 
     scopes_omitted_description = %(
-      * Scopes are not included in the request (TODO)
+      * The optional `scope` parameter is not included.
     )
 
     scopes_description = if config.options[:include_scopes]
@@ -62,7 +63,7 @@ module SMART_UDAP_HarmonizationTestKit
 
     input :udap_received_scopes,
           title: 'Requested Scopes',
-          description: 'A list of scopes to request during'
+          description: 'A list of scopes that will be requested during token exchange.'
 
     input :udap_auth_code_flow_client_cert_pem,
           title: 'X.509 Client Certificate (PEM Format)',
@@ -98,7 +99,8 @@ module SMART_UDAP_HarmonizationTestKit
           default: 'RS256',
           locked: true
 
-    output :udap_token_refresh_response_body
+    output :smart_udap_refresh_token_retrieval_time,
+           :smart_udap_token_refresh_response_body
 
     makes_request :smart_udap_token_refresh_request
 
@@ -135,9 +137,9 @@ module SMART_UDAP_HarmonizationTestKit
       assert_response_status(200)
       assert_valid_json(request.response_body)
 
-      output token_retrieval_time: Time.now.iso8601
+      output smart_udap_refresh_token_retrieval_time: Time.now.iso8601
 
-      output udap_token_refresh_response_body: request.response_body
+      output smart_udap_token_refresh_response_body: request.response_body
     end
   end
 end
