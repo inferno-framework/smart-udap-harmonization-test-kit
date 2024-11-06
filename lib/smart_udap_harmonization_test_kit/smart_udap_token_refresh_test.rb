@@ -122,11 +122,13 @@ module SMART_UDAP_HarmonizationTestKit
         x5c_certs_pem_string: x5c_certs
       )
 
+      requested_scopes = (udap_received_scopes if config.options[:include_scopes])
+
       token_refresh_headers, token_refresh_body =
         SMART_UDAP_RequestBuilder.build_token_refresh_request(
           client_assertion_jwt:,
           refresh_token: udap_refresh_token,
-          requested_scopes: udap_received_scopes
+          requested_scopes: requested_scopes
         )
 
       post(udap_token_endpoint,
