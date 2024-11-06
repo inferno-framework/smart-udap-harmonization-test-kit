@@ -6,21 +6,6 @@ module SMART_UDAP_HarmonizationTestKit
     title 'Server successfully refreshes the access token'
     id :smart_udap_token_refresh
 
-    scopes_included_description = %(
-      * The optional `scope` parameter is included. This will default to the scopes granted in the original token
-      exchange unless the input value is modified by teh tester.
-    )
-
-    scopes_omitted_description = %(
-      * The optional `scope` parameter is not included.
-    )
-
-    scopes_description = if config.options[:include_scopes]
-                           scopes_included_description
-                         else
-                           scopes_omitted_description
-                         end
-
     description %(
       This test will attempt to exchange the refresh token received in the original token exchange for a new access
       token. The test will omit if no refresh token was granted during the token exchange test.
@@ -47,7 +32,6 @@ module SMART_UDAP_HarmonizationTestKit
       * `code` and `redirect_uri` parameters are omitted
       * `grant_type` is set to `refresh_token` per [Section 6 of RFC 6749](https://datatracker.ietf.org/doc/html/rfc6749#section-6)
       * `refresh_token` is included
-      #{scopes_description}
     )
 
     input :udap_client_id,
