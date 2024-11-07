@@ -52,7 +52,7 @@ module SMART_UDAP_HarmonizationTestKit
                name: :udap_received_scopes,
                locked: true
              },
-             token_retrieval_time: {
+             udap_auth_code_flow_token_retrieval_time: {
                name: :smart_udap_refresh_token_retrieval_time
              }
            }

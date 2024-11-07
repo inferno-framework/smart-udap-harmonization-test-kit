@@ -13,7 +13,7 @@ module SMART_UDAP_HarmonizationTestKit
 
     input :token_response_body,
           :udap_auth_code_flow_registration_scope,
-          :token_retrieval_time,
+          :udap_auth_code_flow_token_retrieval_time,
           :udap_token_endpoint,
           :udap_client_id
 
@@ -36,7 +36,7 @@ module SMART_UDAP_HarmonizationTestKit
         expires_in: token_response_body_parsed['expires_in'],
         client_id: udap_client_id,
         client_secret: '',
-        token_retrieval_time:,
+        udap_auth_code_flow_token_retrieval_time:,
         token_url: udap_token_endpoint
       }.to_json
 

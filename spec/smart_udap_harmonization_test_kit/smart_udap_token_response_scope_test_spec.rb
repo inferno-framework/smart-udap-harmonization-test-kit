@@ -19,7 +19,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTes
       'expires_in' => 3600
     }
   end
-  let(:token_retrieval_time) { Time.now.iso8601 }
+  let(:udap_auth_code_flow_token_retrieval_time) { Time.now.iso8601 }
 
   def run(runnable, inputs = {})
     test_run_params = { test_session_id: test_session.id }.merge(runnable.reference_hash)
@@ -42,7 +42,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTes
                  udap_auth_code_flow_registration_scope:,
                  udap_client_id:,
                  token_response_body: invalid_response_body,
-                 token_retrieval_time:)
+                 udap_auth_code_flow_token_retrieval_time:)
     expect(result.result).to eq('fail')
     expect(result.result_message).to match(/valid JSON/)
   end
@@ -54,7 +54,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTes
                  udap_auth_code_flow_registration_scope:,
                  udap_client_id:,
                  token_response_body: JSON.generate(correct_response),
-                 token_retrieval_time:)
+                 udap_auth_code_flow_token_retrieval_time:)
     expect(result.result).to eq('fail')
     expect(result.result_message).to match(/scope/)
   end
@@ -65,7 +65,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTes
                  udap_auth_code_flow_registration_scope:,
                  udap_client_id:,
                  token_response_body: JSON.generate(correct_response),
-                 token_retrieval_time:)
+                 udap_auth_code_flow_token_retrieval_time:)
 
     expect(result.result).to eq('pass')
   end
@@ -77,7 +77,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTes
                  udap_auth_code_flow_registration_scope:,
                  udap_client_id:,
                  token_response_body: JSON.generate(correct_response),
-                 token_retrieval_time:)
+                 udap_auth_code_flow_token_retrieval_time:)
 
     warning_messages = Inferno::Repositories::Messages.new.messages_for_result(result.id).filter do |message|
       message.type == 'warning'

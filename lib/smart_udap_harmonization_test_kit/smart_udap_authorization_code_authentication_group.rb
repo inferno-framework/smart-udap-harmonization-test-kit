@@ -30,7 +30,7 @@ module SMART_UDAP_HarmonizationTestKit
          config: {
            inputs: {
              token_response_body: {
-               name: :authorization_code_token_response_body
+               name: :udap_auth_code_flow_token_exchange_response_body
              }
            }
          }
@@ -39,7 +39,7 @@ module SMART_UDAP_HarmonizationTestKit
          config: {
            inputs: {
              token_response_body: {
-               name: :authorization_code_token_response_body
+               name: :udap_auth_code_flow_registration_scope
              },
              udap_registration_requested_scope: {
                name: :udap_auth_code_flow_registration_scope
