@@ -26,6 +26,7 @@ module SMART_UDAP_HarmonizationTestKit
              }
            }
          }
+
     test from: :udap_token_exchange_response_body,
          config: {
            inputs: {
@@ -35,17 +36,7 @@ module SMART_UDAP_HarmonizationTestKit
            }
          }
 
-    test from: :smart_udap_token_response_scope,
-         config: {
-           inputs: {
-             token_response_body: {
-               name: :udap_auth_code_flow_registration_scope
-             },
-             udap_registration_requested_scope: {
-               name: :udap_auth_code_flow_registration_scope
-             }
-           }
-         }
+    test from: :smart_udap_token_response_scope
 
     test from: :udap_token_exchange_response_headers,
          config: {
