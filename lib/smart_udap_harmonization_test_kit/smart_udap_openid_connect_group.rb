@@ -14,6 +14,9 @@ module SMART_UDAP_HarmonizationTestKit
           name: :udap_client_id,
           title: 'UDAP Client ID'
         },
+        token_response_body: {
+          name: :udap_auth_code_flow_token_exchange_response_body
+        },
         requested_scopes: {
           name: :udap_auth_code_flow_registration_scope,
           title: 'Requested Scopes',

@@ -14,24 +14,73 @@ module SMART_UDAP_HarmonizationTestKit
     description ''
 
     test from: :smart_udap_patient_context,
-         optional: true
+         optional: true,
+         config: {
+           inputs: {
+             token_response_body: {
+               name: :udap_auth_code_flow_token_exchange_response_body
+             }
+           }
+         }
 
     test from: :smart_udap_encounter_context,
-         optional: true
+         optional: true,
+         config: {
+           inputs: {
+             token_response_body: {
+               name: :udap_auth_code_flow_token_exchange_response_body
+             }
+           }
+         }
 
     test from: :smart_udap_fhir_context,
-         optional: true
+         optional: true,
+         config: {
+           inputs: {
+             token_response_body: {
+               name: :udap_auth_code_flow_token_exchange_response_body
+             }
+           }
+         }
 
     test from: :smart_udap_need_patient_banner_context,
-         optional: true
+         optional: true,
+         config: {
+           inputs: {
+             token_response_body: {
+               name: :udap_auth_code_flow_token_exchange_response_body
+             }
+           }
+         }
 
     test from: :smart_udap_intent_context,
-         optional: true
+         optional: true,
+         config: {
+           inputs: {
+             token_response_body: {
+               name: :udap_auth_code_flow_token_exchange_response_body
+             }
+           }
+         }
 
     test from: :smart_udap_smart_style_url_context,
-         optional: true
+         optional: true,
+         config: {
+           inputs: {
+             token_response_body: {
+               name: :udap_auth_code_flow_token_exchange_response_body
+             }
+           }
+         }
 
     test from: :smart_udap_tenant_context,
-         optional: true
+         optional: true,
+         config: {
+           inputs: {
+             token_response_body: {
+               name: :udap_auth_code_flow_token_exchange_response_body
+             }
+           }
+         }
   end
 end

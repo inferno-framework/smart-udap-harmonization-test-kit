@@ -41,7 +41,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTes
                  udap_token_endpoint:,
                  udap_auth_code_flow_registration_scope:,
                  udap_client_id:,
-                 udap_auth_code_flow_token_response_body: invalid_response_body,
+                 udap_auth_code_flow_token_exchange_response_body: invalid_response_body,
                  udap_auth_code_flow_token_retrieval_time:)
     expect(result.result).to eq('fail')
     expect(result.result_message).to match(/valid JSON/)
@@ -53,7 +53,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTes
                  udap_token_endpoint:,
                  udap_auth_code_flow_registration_scope:,
                  udap_client_id:,
-                 udap_auth_code_flow_token_response_body: JSON.generate(correct_response),
+                 udap_auth_code_flow_token_exchange_response_body: JSON.generate(correct_response),
                  udap_auth_code_flow_token_retrieval_time:)
     expect(result.result).to eq('fail')
     expect(result.result_message).to match(/scope/)
@@ -64,7 +64,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTes
                  udap_token_endpoint:,
                  udap_auth_code_flow_registration_scope:,
                  udap_client_id:,
-                 udap_auth_code_flow_token_response_body: JSON.generate(correct_response),
+                 udap_auth_code_flow_token_exchange_response_body: JSON.generate(correct_response),
                  udap_auth_code_flow_token_retrieval_time:)
 
     expect(result.result).to eq('pass')
@@ -76,7 +76,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTes
                  udap_token_endpoint:,
                  udap_auth_code_flow_registration_scope:,
                  udap_client_id:,
-                 udap_auth_code_flow_token_response_body: JSON.generate(correct_response),
+                 udap_auth_code_flow_token_exchange_response_body: JSON.generate(correct_response),
                  udap_auth_code_flow_token_retrieval_time:)
 
     warning_messages = Inferno::Repositories::Messages.new.messages_for_result(result.id).filter do |message|
