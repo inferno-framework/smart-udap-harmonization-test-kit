@@ -57,7 +57,7 @@ module SMART_UDAP_HarmonizationTestKit
     test from: :smart_udap_token_response_scope,
          config: {
            inputs: {
-             token_response_body: {
+             udap_auth_code_flow_token_exchange_response_body: {
                name: :smart_udap_token_refresh_response_body
              },
              udap_auth_code_flow_registration_scope: {
