@@ -23,6 +23,8 @@ module SMART_UDAP_HarmonizationTestKit
       #{scopes_omitted_description}
     )
 
+    run_as_group
+
     test from: :smart_udap_token_refresh,
          config: {
            inputs: {

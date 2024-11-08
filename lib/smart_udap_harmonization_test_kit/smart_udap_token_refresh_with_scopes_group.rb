@@ -40,6 +40,8 @@ module SMART_UDAP_HarmonizationTestKit
       #{scopes_included_description}
     )
 
+    run_as_group
+
     test from: :smart_udap_token_refresh,
          config: {
            options: { include_scopes: true }

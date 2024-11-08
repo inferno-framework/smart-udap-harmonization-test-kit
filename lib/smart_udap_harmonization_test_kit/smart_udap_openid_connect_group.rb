@@ -8,6 +8,8 @@ module SMART_UDAP_HarmonizationTestKit
       This group verifies support for OpenID Connect.
     DESCRIPTION
 
+    run_as_group
+
     config(
       inputs: {
         client_id: {
