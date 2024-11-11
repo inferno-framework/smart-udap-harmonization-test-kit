@@ -8,11 +8,16 @@ module SMART_UDAP_HarmonizationTestKit
       This group verifies support for OpenID Connect.
     DESCRIPTION
 
+    run_as_group
+
     config(
       inputs: {
         client_id: {
           name: :udap_client_id,
           title: 'UDAP Client ID'
+        },
+        token_response_body: {
+          name: :udap_auth_code_flow_token_exchange_response_body
         },
         requested_scopes: {
           name: :udap_auth_code_flow_registration_scope,
@@ -34,7 +39,7 @@ module SMART_UDAP_HarmonizationTestKit
             title: 'Token Exchange Response Body',
             description: 'JSON response body returned by the authorization server during the token exchange step'
 
-      input :token_retrieval_time,
+      input :udap_auth_code_flow_token_retrieval_time,
             title: 'Token Retrieval Time'
 
       output :id_token,
@@ -51,7 +56,7 @@ module SMART_UDAP_HarmonizationTestKit
                smart_credentials: {
                  access_token: token_response_body['access_token'],
                  expires_in: token_response_body['expires_in'],
-                 token_retrieval_time:
+                 udap_auth_code_flow_token_retrieval_time:
                }.to_json
       end
     end

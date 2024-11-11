@@ -11,13 +11,12 @@ module SMART_UDAP_HarmonizationTestKit
         missing.
       )
 
-    input :token_response_body,
+    input :udap_auth_code_flow_token_exchange_response_body,
           :udap_auth_code_flow_registration_scope,
-          :token_retrieval_time,
+          :udap_auth_code_flow_token_retrieval_time,
           :udap_token_endpoint,
           :udap_client_id
 
-    # TODO: omitted intent, would any other of these not apply in a UDAP context?
     output :smart_credentials,
            :id_token,
            :refresh_token,
@@ -28,8 +27,8 @@ module SMART_UDAP_HarmonizationTestKit
            :received_scopes
 
     run do
-      assert_valid_json(token_response_body)
-      token_response_body_parsed = JSON.parse(token_response_body)
+      assert_valid_json(udap_auth_code_flow_token_exchange_response_body)
+      token_response_body_parsed = JSON.parse(udap_auth_code_flow_token_exchange_response_body)
 
       output smart_credentials: {
         refresh_token: token_response_body_parsed['refresh_token'],
@@ -37,7 +36,7 @@ module SMART_UDAP_HarmonizationTestKit
         expires_in: token_response_body_parsed['expires_in'],
         client_id: udap_client_id,
         client_secret: '',
-        token_retrieval_time:,
+        udap_auth_code_flow_token_retrieval_time:,
         token_url: udap_token_endpoint
       }.to_json
 

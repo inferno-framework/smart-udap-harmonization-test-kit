@@ -14,7 +14,7 @@ module SMART_UDAP_HarmonizationTestKit
     )
     id :smart_udap_authorization_code_authentication_group
 
-    # run_as_group
+    run_as_group
 
     test from: :smart_udap_authorization_code_redirect
     test from: :udap_authorization_code_received
@@ -26,26 +26,17 @@ module SMART_UDAP_HarmonizationTestKit
              }
            }
          }
+
     test from: :udap_token_exchange_response_body,
          config: {
            inputs: {
              token_response_body: {
-               name: :authorization_code_token_response_body
+               name: :udap_auth_code_flow_token_exchange_response_body
              }
            }
          }
 
-    test from: :smart_udap_token_response_scope,
-         config: {
-           inputs: {
-             token_response_body: {
-               name: :authorization_code_token_response_body
-             },
-             udap_registration_requested_scope: {
-               name: :udap_auth_code_flow_registration_scope
-             }
-           }
-         }
+    test from: :smart_udap_token_response_scope
 
     test from: :udap_token_exchange_response_headers,
          config: {
