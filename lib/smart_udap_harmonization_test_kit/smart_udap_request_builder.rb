@@ -1,7 +1,7 @@
 require 'uri'
 
-module SMART_UDAP_HarmonizationTestKit
-  class SMART_UDAP_RequestBuilder
+module SMART_UDAP_HarmonizationTestKit # rubocop:disable Naming/ClassAndModuleCamelCase
+  class SMART_UDAP_RequestBuilder # rubocop:disable Naming/ClassAndModuleCamelCase
     # Client MUST authenticate to auth server during token refresh per RFC 6749
     # Section 6 https://datatracker.ietf.org/doc/html/rfc6749#section-6
     # Assuming auth mechanism is same as it was for token exchange, i.e.,

@@ -1,7 +1,7 @@
 require_relative 'smart_udap_context_test'
 
-module SMART_UDAP_HarmonizationTestKit
-  class SMART_UDAP_IntentContextTest < SMART_UDAP_ContextTest
+module SMART_UDAP_HarmonizationTestKit # rubocop:disable Naming/ClassAndModuleCamelCase
+  class SMART_UDAP_IntentContextTest < SMART_UDAP_ContextTest # rubocop:disable Naming/ClassAndModuleCamelCase
     id :smart_udap_intent_context
     title 'Support for "intent" launch context'
     description <<~DESCRIPTION

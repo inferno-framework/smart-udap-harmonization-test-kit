@@ -1,5 +1,5 @@
-module SMART_UDAP_HarmonizationTestKit
-  class SMART_UDAP_ContextTest < Inferno::Test
+module SMART_UDAP_HarmonizationTestKit # rubocop:disable Naming/ClassAndModuleCamelCase
+  class SMART_UDAP_ContextTest < Inferno::Test # rubocop:disable Naming/ClassAndModuleCamelCase
     attr_accessor :token_response
 
     input :token_response_body,

@@ -1,7 +1,7 @@
 require 'smart_app_launch/openid_connect_group'
 
-module SMART_UDAP_HarmonizationTestKit
-  class SMART_UDAP_OpenIDConnectGroup < SMARTAppLaunch::OpenIDConnectGroup
+module SMART_UDAP_HarmonizationTestKit # rubocop:disable Naming/ClassAndModuleCamelCase
+  class SMART_UDAP_OpenIDConnectGroup < SMARTAppLaunch::OpenIDConnectGroup # rubocop:disable Naming/ClassAndModuleCamelCase
     id :smart_udap_openid_connect
     title 'Support for OpenID Connect'
     description <<~DESCRIPTION

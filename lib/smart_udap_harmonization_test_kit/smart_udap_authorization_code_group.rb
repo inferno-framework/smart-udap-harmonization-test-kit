@@ -7,8 +7,8 @@ require_relative 'smart_udap_openid_connect_group'
 require_relative 'smart_udap_token_refresh_with_scopes_group'
 require_relative 'smart_udap_token_refresh_without_scopes_group'
 
-module SMART_UDAP_HarmonizationTestKit
-  class SMART_UDAP_Authorization_Code_Group < Inferno::TestGroup
+module SMART_UDAP_HarmonizationTestKit # rubocop:disable Naming/ClassAndModuleCamelCase
+  class SMART_UDAP_Authorization_Code_Group < Inferno::TestGroup # rubocop:disable Naming/ClassAndModuleCamelCase
     title 'UDAP Authorization Code Flow'
     description %(
       This group tests UDAP servers that support JWT authentication using an OAuth2.0 authorization_code grant flow and

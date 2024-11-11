@@ -1,8 +1,8 @@
 require 'udap_security_test_kit/udap_client_assertion_payload_builder'
 require 'udap_security_test_kit/udap_jwt_builder'
 require_relative 'smart_udap_request_builder'
-module SMART_UDAP_HarmonizationTestKit
-  class SMART_UDAP_TokenRefreshTest < Inferno::Test
+module SMART_UDAP_HarmonizationTestKit # rubocop:disable Naming/ClassAndModuleCamelCase
+  class SMART_UDAP_TokenRefreshTest < Inferno::Test # rubocop:disable Naming/ClassAndModuleCamelCase
     title 'Server successfully refreshes the access token'
     id :smart_udap_token_refresh
 

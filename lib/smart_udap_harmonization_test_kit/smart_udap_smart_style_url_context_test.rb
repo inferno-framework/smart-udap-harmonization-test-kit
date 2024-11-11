@@ -1,7 +1,7 @@
 require_relative 'smart_udap_context_test'
 
-module SMART_UDAP_HarmonizationTestKit
-  class SMART_UDAP_SmartStyleUrlContextTest < SMART_UDAP_ContextTest
+module SMART_UDAP_HarmonizationTestKit # rubocop:disable Naming/ClassAndModuleCamelCase
+  class SMART_UDAP_SmartStyleUrlContextTest < SMART_UDAP_ContextTest # rubocop:disable Naming/ClassAndModuleCamelCase
     id :smart_udap_smart_style_url_context
     title 'Support for "smart_style_url" launch context'
     description <<~DESCRIPTION
