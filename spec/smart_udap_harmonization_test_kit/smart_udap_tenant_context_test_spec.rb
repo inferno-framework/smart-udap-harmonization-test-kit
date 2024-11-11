@@ -60,7 +60,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TenantContextTest do 
   end
 
   it 'fails if tenant launch context parameter value is not a String' do
-    token_response_body['intent'] = 1234
+    token_response_body['tenant'] = 1234
     result = run(runnable,
                  udap_auth_code_flow_registration_scope:,
                  token_response_body: JSON.generate(token_response_body))
