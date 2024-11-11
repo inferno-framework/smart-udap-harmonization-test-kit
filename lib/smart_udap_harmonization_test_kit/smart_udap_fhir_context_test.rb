@@ -17,7 +17,7 @@ module SMART_UDAP_HarmonizationTestKit # rubocop:disable Naming/ClassAndModuleCa
       [].freeze
     end
 
-    def validate_context_field
+    def validate_context_field # rubocop:disable Metrics/CyclomaticComplexity
       assert context_field.is_a?(Array),
              "`fhirContext` field should be an Array, but found `#{context_field.class.name}`"
 
