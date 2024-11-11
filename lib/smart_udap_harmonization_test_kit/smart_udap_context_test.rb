@@ -33,11 +33,11 @@ module SMART_UDAP_HarmonizationTestKit
     end
 
     def received_scopes_list
-      @received_scopes_list ||= received_scopes.split(' ')
+      @received_scopes_list ||= received_scopes.split
     end
 
     def requested_scopes_list
-      @requested_scopes_list ||= requested_scopes.split(' ')
+      @requested_scopes_list ||= requested_scopes.split
     end
 
     def missing_requested_scopes_string
