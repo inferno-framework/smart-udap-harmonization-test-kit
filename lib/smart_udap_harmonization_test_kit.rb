@@ -23,6 +23,29 @@ module SMARTUDAPHarmonizationTestKit
       redirect_uri: "#{Inferno::Application['base_url']}/custom/smart_udap_harmonization/redirect"
     }
 
+    links [
+      {
+        label: 'Report Issue',
+        url: 'https://github.com/inferno-framework/smart-udap-harmonization-test-kit/issues'
+      },
+      {
+        label: 'Open Source',
+        url: 'https://github.com/inferno-framework/smart-udap-harmonization-test-kit'
+      },
+      {
+        label: 'Download',
+        url: 'https://github.com/inferno-framework/smart-udap-harmonization-test-kit/releases'
+      },
+      {
+        label: 'UDAP Implementation Guide',
+        url: 'https://hl7.org/fhir/us/udap-security/STU1'
+      },
+      {
+        label: 'SMART Implementation Guide',
+        url: 'https://hl7.org/fhir/smart-app-launch/STU2.2/scopes-and-launch-context.html'
+      }
+    ]
+
     group from: :smart_udap_authorization_code_group
   end
 end
