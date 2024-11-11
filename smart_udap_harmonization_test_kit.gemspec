@@ -1,7 +1,7 @@
 Gem::Specification.new do |spec|
   spec.name          = 'smart_udap_harmonization_test_kit'
-  spec.version       = '0.0.1'
-  spec.authors       = ['Alisa Wallace']
+  spec.version       = '0.9.0'
+  spec.authors       = ['Alisa Wallace', 'Stephen MacVicar']
   spec.email         = ['inferno@groups.mitre.org']
   spec.summary       = 'SMART-UDAP Harmonization Test Kit'
   spec.description   = 'Test Kit for integrating SMART App Launch and UDAP Security IGs'
