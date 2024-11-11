@@ -1,6 +1,6 @@
 require_relative '../../lib/smart_udap_harmonization_test_kit/smart_udap_token_response_scope_test'
 
-RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTest do
+RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTest do # rubocop:disable RSpec/SpecFilePathFormat
   let(:runnable) { Inferno::Repositories::Tests.new.find('smart_udap_token_response_scope') }
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
   let(:results_repo) { Inferno::Repositories::Results.new }
