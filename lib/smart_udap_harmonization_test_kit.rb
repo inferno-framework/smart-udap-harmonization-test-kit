@@ -6,13 +6,32 @@ module SMART_UDAP_HarmonizationTestKit # rubocop:disable Naming/ClassAndModuleCa
     id :smart_udap_harmonization
     title 'SMART-UDAP Harmonization'
     description %(
-      This test suite tests server support for the [HL7 UDAP STU1.0 IG](https://hl7.org/fhir/us/udap-security/STU1/index.html)
-      set of UDAP workflows (discovery, client registration, and authentication/authorization) using
-      [SMART App Launch STU2-compliant scopes and launch contexts](https://hl7.org/fhir/smart-app-launch/STU2.2/scopes-and-launch-context.html).
+      ## Overview
+      This test suite tests server support for the [Security for Scalable
+      Registration, Authentication, and Authorization
+      IG](https://hl7.org/fhir/us/udap-security/index.html) set of UDAP
+      workflows (discovery, client registration, and
+      authentication/authorization) using [SMART App Launch STU2-compliant
+      scopes and launch
+      contexts](https://hl7.org/fhir/smart-app-launch/STU2.2/scopes-and-launch-context.html).
 
-      Conformant systems are expected to comply with all UDAP requirements, with the exception of requirements
-      pertaining to scopes, where the system is expected to comply with SMART App Launch STU2 scopes requirements.
-      No other requirements from the SMART App Launch framework are assessed.
+      The [Security for Scalable Registration, Authentication, and Authorization
+      IG](https://hl7.org/fhir/us/udap-security/index.html) states that
+
+      > This guide is also intended to be compatible and harmonious with client and
+      > server use of versions 1 or 2 of the HL7 SMART App Launch IG.
+
+      This test kit is an effort to demonstrate how a client could interact with a
+      server supporting both UDAP and SMART App Launch.
+
+      The basic assumption underlying these tests is that a client could perform
+      dynamic registration and launch with client authorization from the UDAP workflow
+      while using SMART App Launch scopes, and the server could include additional
+      launch context parameters defined by SMART App Launch in the token response.
+
+      ## Known Limitations
+      The UDAP dynamic registration workflow does not define a way to register a
+      launch URI, so the tests only perform a standalone launch.
     )
 
     resume_test_route :get, '/redirect' do |request|
