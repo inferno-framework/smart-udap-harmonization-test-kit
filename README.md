@@ -1,4 +1,4 @@
-# Inferno UDAP Security IG Test Kit 
+# Inferno SMART-UDAP Harmonization Test Kit 
 
 The [Security for Scalable Registration, Authentication, and Authorization
 IG](https://hl7.org/fhir/us/udap-security/index.html) states that
