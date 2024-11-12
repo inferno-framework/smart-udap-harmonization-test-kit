@@ -1,5 +1,6 @@
 require 'udap_security_test_kit'
 require_relative 'smart_udap_harmonization_test_kit/smart_udap_authorization_code_group'
+require_relative 'smart_udap_harmonization_test_kit/version'
 
 module SMART_UDAP_HarmonizationTestKit # rubocop:disable Naming/ClassAndModuleCamelCase
   class Suite < Inferno::TestSuite
@@ -33,6 +34,8 @@ module SMART_UDAP_HarmonizationTestKit # rubocop:disable Naming/ClassAndModuleCa
       The UDAP dynamic registration workflow does not define a way to register a
       launch URI, so the tests only perform a standalone launch.
     )
+
+    version VERSION
 
     resume_test_route :get, '/redirect' do |request|
       request.query_parameters['state']

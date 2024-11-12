@@ -1,6 +1,8 @@
+require_relative 'lib/smart_udap_harmonization_test_kit/version'
+
 Gem::Specification.new do |spec|
   spec.name          = 'smart_udap_harmonization_test_kit'
-  spec.version       = '0.9.0'
+  spec.version       = SMART_UDAP_HarmonizationTestKit::VERSION
   spec.authors       = ['Alisa Wallace', 'Stephen MacVicar']
   spec.email         = ['inferno@groups.mitre.org']
   spec.summary       = 'SMART-UDAP Harmonization Test Kit'
