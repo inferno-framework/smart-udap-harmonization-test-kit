@@ -1,4 +1,4 @@
-module SMART_UDAP_HarmonizationTestKit # rubocop:disable Naming/ClassAndModuleCamelCase
+module SMART_UDAP_HarmonizationTestKit
   class SMART_UDAP_AuthorizationCodeRedirectTest < Inferno::Test # rubocop:disable Naming/ClassAndModuleCamelCase
     title 'Authorization server redirects client to redirect URI with SMART scopes'
     id :smart_udap_authorization_code_redirect

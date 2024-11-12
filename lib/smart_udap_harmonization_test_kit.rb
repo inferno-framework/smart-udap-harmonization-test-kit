@@ -2,7 +2,7 @@ require 'udap_security_test_kit'
 require_relative 'smart_udap_harmonization_test_kit/smart_udap_authorization_code_group'
 require_relative 'smart_udap_harmonization_test_kit/version'
 
-module SMART_UDAP_HarmonizationTestKit # rubocop:disable Naming/ClassAndModuleCamelCase
+module SMART_UDAP_HarmonizationTestKit
   class Suite < Inferno::TestSuite
     id :smart_udap_harmonization
     title 'SMART-UDAP Harmonization'

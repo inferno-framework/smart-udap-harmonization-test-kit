@@ -1,6 +1,6 @@
 require_relative 'smart_udap_context_test'
 
-module SMART_UDAP_HarmonizationTestKit # rubocop:disable Naming/ClassAndModuleCamelCase
+module SMART_UDAP_HarmonizationTestKit
   class SMART_UDAP_EncounterContextTest < SMART_UDAP_ContextTest # rubocop:disable Naming/ClassAndModuleCamelCase
     id :smart_udap_encounter_context
     title 'Support for "encounter" launch context'

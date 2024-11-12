@@ -1,6 +1,6 @@
 require_relative 'smart_udap_context_test'
 
-module SMART_UDAP_HarmonizationTestKit # rubocop:disable Naming/ClassAndModuleCamelCase
+module SMART_UDAP_HarmonizationTestKit
   class SMART_UDAP_FHIR_ContextTest < SMART_UDAP_ContextTest # rubocop:disable Naming/ClassAndModuleCamelCase
     id :smart_udap_fhir_context
     title 'Support for "fhirContext" launch context'
