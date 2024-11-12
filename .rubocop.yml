@@ -34,6 +34,10 @@ Style/SymbolArray:
 Style/WordArray:
   Enabled: false
 
+Naming/ClassAndModuleCamelCase:
+  AllowedNames:
+    - SMART_UDAP_HarmonizationTestKit
+
 # Use code climate's metrics measurement rather than rubocop's
 Metrics/AbcSize:
   Enabled: false

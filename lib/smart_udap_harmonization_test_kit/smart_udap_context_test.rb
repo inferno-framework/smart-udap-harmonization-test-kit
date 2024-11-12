@@ -1,5 +1,5 @@
 module SMART_UDAP_HarmonizationTestKit
-  class SMART_UDAP_ContextTest < Inferno::Test
+  class SMART_UDAP_ContextTest < Inferno::Test # rubocop:disable Naming/ClassAndModuleCamelCase
     attr_accessor :token_response
 
     input :token_response_body,
@@ -33,11 +33,11 @@ module SMART_UDAP_HarmonizationTestKit
     end
 
     def received_scopes_list
-      @received_scopes_list ||= received_scopes.split(' ')
+      @received_scopes_list ||= received_scopes.split
     end
 
     def requested_scopes_list
-      @requested_scopes_list ||= requested_scopes.split(' ')
+      @requested_scopes_list ||= requested_scopes.split
     end
 
     def missing_requested_scopes_string

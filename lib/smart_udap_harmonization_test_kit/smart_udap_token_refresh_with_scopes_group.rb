@@ -4,7 +4,7 @@ require 'udap_security_test_kit/token_exchange_response_body_test'
 require 'udap_security_test_kit/token_exchange_response_headers_test'
 
 module SMART_UDAP_HarmonizationTestKit
-  class SMART_UDAP_TokenRefreshWithScopesGroup < Inferno::TestGroup
+  class SMART_UDAP_TokenRefreshWithScopesGroup < Inferno::TestGroup # rubocop:disable Naming/ClassAndModuleCamelCase
     title 'Support for Token Refresh With Scopes'
     id :smart_udap_token_refresh_with_scopes
 

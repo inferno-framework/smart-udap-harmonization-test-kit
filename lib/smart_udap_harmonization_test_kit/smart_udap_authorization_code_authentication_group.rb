@@ -2,7 +2,7 @@ require_relative 'smart_udap_authorization_code_redirect_test'
 require_relative 'smart_udap_token_response_scope_test'
 
 module SMART_UDAP_HarmonizationTestKit
-  class SMART_UDAP_AuthorizationCodeAuthenticationGroup < Inferno::TestGroup
+  class SMART_UDAP_AuthorizationCodeAuthenticationGroup < Inferno::TestGroup # rubocop:disable Naming/ClassAndModuleCamelCase
     title 'UDAP Authorization Code Authorization & Authentication'
     description %(
       This group tests the use of the authorization_code grant type in conjunction with SMART scopes to receive an

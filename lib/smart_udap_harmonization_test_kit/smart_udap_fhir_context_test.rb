@@ -1,7 +1,7 @@
 require_relative 'smart_udap_context_test'
 
 module SMART_UDAP_HarmonizationTestKit
-  class SMART_UDAP_FHIR_ContextTest < SMART_UDAP_ContextTest
+  class SMART_UDAP_FHIR_ContextTest < SMART_UDAP_ContextTest # rubocop:disable Naming/ClassAndModuleCamelCase
     id :smart_udap_fhir_context
     title 'Support for "fhirContext" launch context'
     description <<~DESCRIPTION
@@ -17,8 +17,9 @@ module SMART_UDAP_HarmonizationTestKit
       [].freeze
     end
 
-    def validate_context_field
-      assert context_field.is_a?(Array), "`fhirContext` field should be an Array, but found `#{context_field.class.name}`"
+    def validate_context_field # rubocop:disable Metrics/CyclomaticComplexity
+      assert context_field.is_a?(Array),
+             "`fhirContext` field should be an Array, but found `#{context_field.class.name}`"
 
       context_field_types = context_field.map(&:class).uniq
 
@@ -67,10 +68,12 @@ module SMART_UDAP_HarmonizationTestKit
           member['reference']&.start_with?('Patient/') || member['reference']&.start_with?('Encounter/')
         end
       good_patient_and_encounter_roles =
-        patient_and_encounter_references.all? { |reference| reference['role'].present? && reference['role'] != 'launch' }
+        patient_and_encounter_references.all? do |reference|
+          reference['role'].present? && reference['role'] != 'launch'
+        end
 
       assert good_patient_and_encounter_roles,
-             "Patient and Encounter references are not allowed unless they have a role other than `launch`"
+             'Patient and Encounter references are not allowed unless they have a role other than `launch`'
 
       assert context_field.all? { |member| member['role'].is_a?(String) ? member['role'].present? : true },
              '`role` SHALL NOT be an empty string'

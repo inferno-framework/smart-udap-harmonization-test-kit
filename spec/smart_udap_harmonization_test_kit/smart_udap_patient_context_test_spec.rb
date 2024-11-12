@@ -1,6 +1,6 @@
 require_relative '../../lib/smart_udap_harmonization_test_kit/smart_udap_patient_context_test'
 
-RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_PatientContextTest do
+RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_PatientContextTest do # rubocop:disable RSpec/SpecFilePathFormat
   let(:runnable) { Inferno::Repositories::Tests.new.find('smart_udap_patient_context') }
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
   let(:results_repo) { Inferno::Repositories::Results.new }
@@ -115,7 +115,9 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_PatientContextTest do
         end
 
         expect(warning_messages).to be_any do |wm|
-          wm.message.include? '`patient` field is present in token response even though `launch`, `launch/patient` was not received'
+          wm.message.include?(
+            '`patient` field is present in token response even though `launch`, `launch/patient` was not received'
+          )
         end
 
         expect(result.result).to eq('pass')

@@ -1,7 +1,7 @@
 require 'smart_app_launch/token_payload_validation'
 
 module SMART_UDAP_HarmonizationTestKit
-  class SMART_UDAP_TokenResponseScopeTest < Inferno::Test
+  class SMART_UDAP_TokenResponseScopeTest < Inferno::Test # rubocop:disable Naming/ClassAndModuleCamelCase
     include SMARTAppLaunch::TokenPayloadValidation
     title 'Token exchange reponse body includes required content for SMART scopes'
     id :smart_udap_token_response_scope

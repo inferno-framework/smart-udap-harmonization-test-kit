@@ -8,7 +8,7 @@ require_relative 'smart_udap_tenant_context_test'
 require_relative 'smart_udap_openid_connect_group'
 
 module SMART_UDAP_HarmonizationTestKit
-  class SMART_UDAP_LaunchContextGroup < Inferno::TestGroup
+  class SMART_UDAP_LaunchContextGroup < Inferno::TestGroup # rubocop:disable Naming/ClassAndModuleCamelCase
     title 'SMART/UDAP Launch Context'
     id :smart_udap_launch_context
     description ''
