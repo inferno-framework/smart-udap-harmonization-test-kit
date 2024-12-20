@@ -63,6 +63,9 @@ module SMART_UDAP_HarmonizationTestKit
                 default: 'authorization_code',
                 locked: true
               },
+              udap_client_registration_status: {
+                name: :udap_auth_code_flow_client_registration_status
+              },
               udap_client_cert_pem: {
                 name: :udap_auth_code_flow_client_cert_pem,
                 title: 'Authorization Code Client Certificate(s) (PEM Format)'
