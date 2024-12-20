@@ -1,4 +1,3 @@
-require_relative 'smart_udap_authorization_code_redirect_test'
 require_relative 'smart_udap_token_response_scope_test'
 
 module SMART_UDAP_HarmonizationTestKit
@@ -16,7 +15,6 @@ module SMART_UDAP_HarmonizationTestKit
 
     run_as_group
 
-    # test from: :smart_udap_authorization_code_redirect
     test from: :udap_authorization_code_redirect
     test from: :udap_authorization_code_received
     test from: :udap_authorization_code_token_exchange,
