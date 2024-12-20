@@ -16,7 +16,8 @@ module SMART_UDAP_HarmonizationTestKit
 
     run_as_group
 
-    test from: :smart_udap_authorization_code_redirect
+    # test from: :smart_udap_authorization_code_redirect
+    test from: :udap_authorization_code_redirect
     test from: :udap_authorization_code_received
     test from: :udap_authorization_code_token_exchange,
          config: {

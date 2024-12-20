@@ -6,7 +6,7 @@ module SMART_UDAP_HarmonizationTestKit
           title: 'Token Exchange Response Body',
           description: 'JSON response body returned by the authorization server during the token exchange step.',
           type: 'textarea'
-    input :udap_auth_code_flow_registration_scope,
+    input :udap_authorization_code_request_scopes,
           title: 'Requested Scopes',
           description: 'Scopes client requested from the authorization server during the authorization step.'
 
@@ -19,7 +19,7 @@ module SMART_UDAP_HarmonizationTestKit
     end
 
     def requested_scopes
-      udap_auth_code_flow_registration_scope
+      udap_authorization_code_request_scopes
     end
 
     def missing_requested_context_scopes

@@ -62,7 +62,7 @@ module SMART_UDAP_HarmonizationTestKit
              udap_auth_code_flow_token_exchange_response_body: {
                name: :smart_udap_token_refresh_response_body
              },
-             udap_auth_code_flow_registration_scope: {
+             udap_authorization_code_request_scopes: {
                name: :udap_received_scopes
              },
              udap_auth_code_flow_token_retrieval_time: {
