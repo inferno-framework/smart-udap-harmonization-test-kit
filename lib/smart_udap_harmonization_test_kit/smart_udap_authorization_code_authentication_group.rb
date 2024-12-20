@@ -15,7 +15,15 @@ module SMART_UDAP_HarmonizationTestKit
 
     run_as_group
 
-    test from: :udap_authorization_code_redirect
+    test from: :udap_authorization_code_redirect,
+         config: {
+           inputs: {
+             udap_authorization_code_request_aud: {
+               default: ['include_aud'],
+               locked: true
+             }
+           }
+         }
     test from: :udap_authorization_code_received
     test from: :udap_authorization_code_token_exchange,
          config: {
