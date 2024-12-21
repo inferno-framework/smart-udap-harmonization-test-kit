@@ -22,7 +22,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenRefreshTest do #
   let(:input) do
     {
       udap_refresh_token:,
-      udap_received_scopes: 'openid fhirUser offline_access patient/*.read',
+      received_scopes: 'openid fhirUser offline_access patient/*.read',
       udap_token_endpoint:,
       udap_client_id: 'CLIENT_ID',
       udap_auth_code_flow_client_cert_pem:,
@@ -51,7 +51,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenRefreshTest do #
 
     result = run(runnable,
                  udap_refresh_token: '',
-                 udap_received_scopes: 'scopes',
+                 received_scopes: 'scopes',
                  udap_token_endpoint:,
                  udap_client_id: 'CLIENT_ID',
                  udap_auth_code_flow_client_cert_pem:,
