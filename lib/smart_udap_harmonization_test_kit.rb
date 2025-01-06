@@ -41,10 +41,6 @@ module SMART_UDAP_HarmonizationTestKit
       request.query_parameters['state']
     end
 
-    config options: {
-      redirect_uri: "#{Inferno::Application['base_url']}/custom/smart_udap_harmonization/redirect"
-    }
-
     links [
       {
         label: 'Report Issue',

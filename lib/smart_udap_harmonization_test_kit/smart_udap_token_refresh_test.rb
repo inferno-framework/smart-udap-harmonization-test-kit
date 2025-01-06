@@ -45,7 +45,8 @@ module SMART_UDAP_HarmonizationTestKit
           title: 'Refresh Token',
           type: 'textarea'
 
-    input :udap_received_scopes,
+    # These should default to those received and output by the token exchange test
+    input :received_scopes,
           title: 'Requested Scopes',
           description: 'A list of scopes that will be requested during token exchange.'
 

@@ -7,7 +7,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTes
   let(:test_session) { repo_create(:test_session, test_suite_id: 'smart_udap_harmonization') }
 
   let(:udap_token_endpoint) { 'https://example.com/token' }
-  let(:udap_auth_code_flow_registration_scope) { 'openid fhirUser offline_access patient/*.read' }
+  let(:udap_authorization_code_request_scopes) { 'openid fhirUser offline_access patient/*.read' }
   let(:udap_client_id) { 'example_client_id' }
   let(:correct_response) do
     {
@@ -15,7 +15,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTes
       'refresh_token' => 'example_refresh_token',
       'id_token' => 'example_id_token',
       'token_type' => 'Bearer',
-      'scope' => udap_auth_code_flow_registration_scope,
+      'scope' => udap_authorization_code_request_scopes,
       'expires_in' => 3600
     }
   end
@@ -39,7 +39,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTes
     invalid_response_body = '{invalid_key: invalid_value}'
     result = run(runnable,
                  udap_token_endpoint:,
-                 udap_auth_code_flow_registration_scope:,
+                 udap_authorization_code_request_scopes:,
                  udap_client_id:,
                  udap_auth_code_flow_token_exchange_response_body: invalid_response_body,
                  udap_auth_code_flow_token_retrieval_time:)
@@ -51,7 +51,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTes
     correct_response.delete('scope')
     result = run(runnable,
                  udap_token_endpoint:,
-                 udap_auth_code_flow_registration_scope:,
+                 udap_authorization_code_request_scopes:,
                  udap_client_id:,
                  udap_auth_code_flow_token_exchange_response_body: JSON.generate(correct_response),
                  udap_auth_code_flow_token_retrieval_time:)
@@ -62,7 +62,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTes
   it 'passes when response contains all required values' do
     result = run(runnable,
                  udap_token_endpoint:,
-                 udap_auth_code_flow_registration_scope:,
+                 udap_authorization_code_request_scopes:,
                  udap_client_id:,
                  udap_auth_code_flow_token_exchange_response_body: JSON.generate(correct_response),
                  udap_auth_code_flow_token_retrieval_time:)
@@ -74,7 +74,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTes
     correct_response['scope'] = 'openid fhirUser offline_access'
     result = run(runnable,
                  udap_token_endpoint:,
-                 udap_auth_code_flow_registration_scope:,
+                 udap_authorization_code_request_scopes:,
                  udap_client_id:,
                  udap_auth_code_flow_token_exchange_response_body: JSON.generate(correct_response),
                  udap_auth_code_flow_token_retrieval_time:)

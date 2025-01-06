@@ -12,5 +12,6 @@ group :development, :test do
   gem 'rspec', '~> 3.10'
   gem 'rubocop'
   gem 'rubocop-rspec', require: false
+  gem 'udap_security_test_kit', :github => 'inferno-framework/udap-security-test-kit', :branch => 'FI-3610-redirect-config-fix'
   gem 'webmock', '~> 3.11'
 end
