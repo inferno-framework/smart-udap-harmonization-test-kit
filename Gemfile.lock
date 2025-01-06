@@ -1,10 +1,18 @@
+GIT
+  remote: https://github.com/inferno-framework/udap-security-test-kit.git
+  revision: 6f6616607ea7a08fa5263d5a3635e5134bf07f8b
+  branch: FI-3610-redirect-config-fix
+  specs:
+    udap_security_test_kit (0.10.2)
+      inferno_core (>= 0.5.1)
+      jwt (~> 2.3)
+
 PATH
   remote: .
   specs:
     smart_udap_harmonization_test_kit (0.9.0)
       inferno_core (~> 0.5.0)
       smart_app_launch_test_kit (~> 0.4.3)
-      udap_security_test_kit (~> 0.10.2)
 
 GEM
   remote: https://rubygems.org/
@@ -329,9 +337,6 @@ GEM
     tty-screen (0.8.2)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    udap_security_test_kit (0.10.2)
-      inferno_core (>= 0.5.1)
-      jwt (~> 2.3)
     unicode-display_width (2.6.0)
     unicode_utils (1.4.0)
     webmock (3.24.0)
@@ -358,6 +363,7 @@ DEPENDENCIES
   rubocop
   rubocop-rspec
   smart_udap_harmonization_test_kit!
+  udap_security_test_kit!
   webmock (~> 3.11)
 
 BUNDLED WITH
