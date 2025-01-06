@@ -13,7 +13,7 @@ module SMART_UDAP_HarmonizationTestKit
     )
     id :smart_udap_authorization_code_authentication_group
 
-    run_as_group
+    # run_as_group
 
     test from: :udap_authorization_code_redirect,
          config: {
