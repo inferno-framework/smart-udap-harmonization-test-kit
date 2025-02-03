@@ -28,7 +28,7 @@ module SMART_UDAP_HarmonizationTestKit
     test from: :smart_udap_token_refresh,
          config: {
            inputs: {
-             udap_received_scopes: {
+             received_scopes: {
                locked: true,
                description: 'Will be omitted in refresh request.'
              }
@@ -50,8 +50,10 @@ module SMART_UDAP_HarmonizationTestKit
              udap_auth_code_flow_token_exchange_response_body: {
                name: :smart_udap_token_refresh_response_body
              },
-             udap_auth_code_flow_registration_scope: {
-               name: :udap_received_scopes,
+             # For token refresh, we requested the same scopes we already
+             # received in the original token exchange step
+             udap_authorization_code_request_scopes: {
+               name: :received_scopes,
                locked: true
              },
              udap_auth_code_flow_token_retrieval_time: {

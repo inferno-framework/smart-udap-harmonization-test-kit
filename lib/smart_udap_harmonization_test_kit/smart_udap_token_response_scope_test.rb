@@ -12,7 +12,7 @@ module SMART_UDAP_HarmonizationTestKit
       )
 
     input :udap_auth_code_flow_token_exchange_response_body,
-          :udap_auth_code_flow_registration_scope,
+          :udap_authorization_code_request_scopes,
           :udap_auth_code_flow_token_retrieval_time,
           :udap_token_endpoint,
           :udap_client_id
@@ -50,7 +50,7 @@ module SMART_UDAP_HarmonizationTestKit
 
       assert received_scopes.present?, 'Token exchange response does not include the `scope` parameter'
 
-      check_for_missing_scopes(udap_auth_code_flow_registration_scope, token_response_body_parsed)
+      check_for_missing_scopes(udap_authorization_code_request_scopes, token_response_body_parsed)
     end
   end
 end
