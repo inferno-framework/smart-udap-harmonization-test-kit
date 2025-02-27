@@ -1,11 +1,12 @@
 require_relative '../../lib/smart_udap_harmonization_test_kit/smart_udap_smart_style_url_context_test'
 
 RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_SmartStyleUrlContextTest do # rubocop:disable RSpec/SpecFilePathFormat
+  let(:suite_id) { :smart_udap_harmonization }
   let(:runnable) { Inferno::Repositories::Tests.new.find('smart_udap_smart_style_url_context') }
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
   let(:results_repo) { Inferno::Repositories::Results.new }
-  let(:test_session) { repo_create(:test_session, test_suite_id: 'smart_udap_harmonization') }
-  let(:udap_auth_code_flow_registration_scope) { 'launch/patient openid fhirUser offline_access patient/*.read' }
+  let(:test_session) { repo_create(:test_session, test_suite_id: suite_id) }
+  let(:udap_authorization_code_request_scopes) { 'launch/patient openid fhirUser offline_access patient/*.read' }
   let(:smart_style_url) { 'http://example.com/smart_style_url' }
   let(:token_response_body) do
     {
@@ -13,7 +14,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_SmartStyleUrlContextT
       'refresh_token' => 'example_refresh_token',
       'id_token' => 'example_id_token',
       'token_type' => 'Bearer',
-      'scope' => udap_auth_code_flow_registration_scope,
+      'scope' => udap_authorization_code_request_scopes,
       'expires_in' => 3600,
       'patient' => 'EXAMPLE_PATIENT',
       'smart_style_url' => smart_style_url
@@ -36,7 +37,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_SmartStyleUrlContextT
 
   it 'skips if response body is not present' do
     result = run(runnable,
-                 udap_auth_code_flow_registration_scope:,
+                 udap_authorization_code_request_scopes:,
                  token_response_body: '')
     expect(result.result).to eq('skip')
   end
@@ -44,7 +45,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_SmartStyleUrlContextT
   it 'fails if response body is not valid JSON' do
     invalid_response_body = '{invalid_key: invalid_value}'
     result = run(runnable,
-                 udap_auth_code_flow_registration_scope:,
+                 udap_authorization_code_request_scopes:,
                  token_response_body: invalid_response_body)
     expect(result.result).to eq('fail')
     expect(result.result_message).to match(/valid JSON/)
@@ -53,7 +54,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_SmartStyleUrlContextT
   it 'fails if smart_style_url context parameter not present in response body' do
     token_response_body.delete('smart_style_url')
     result = run(runnable,
-                 udap_auth_code_flow_registration_scope:,
+                 udap_authorization_code_request_scopes:,
                  token_response_body: JSON.generate(token_response_body))
 
     expect(result.result).to eq('fail')
@@ -63,7 +64,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_SmartStyleUrlContextT
   it 'fails if need_patient_banner context parameter value is not a String' do
     token_response_body['smart_style_url'] = 1234
     result = run(runnable,
-                 udap_auth_code_flow_registration_scope:,
+                 udap_authorization_code_request_scopes:,
                  token_response_body: JSON.generate(token_response_body))
 
     expect(result.result).to eq('fail')
@@ -73,7 +74,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_SmartStyleUrlContextT
   it 'fails if need_patient_banner context parameter value is not a valid HTTP URI' do
     token_response_body['smart_style_url'] = 'not a URI'
     result = run(runnable,
-                 udap_auth_code_flow_registration_scope:,
+                 udap_authorization_code_request_scopes:,
                  token_response_body: JSON.generate(token_response_body))
 
     expect(result.result).to eq('fail')
@@ -85,7 +86,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_SmartStyleUrlContextT
       .to_return(status: 404, body: {}.to_json, headers: {})
 
     result = run(runnable,
-                 udap_auth_code_flow_registration_scope:,
+                 udap_authorization_code_request_scopes:,
                  token_response_body: JSON.generate(token_response_body))
 
     expect(result.result).to eq('fail')
@@ -97,7 +98,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_SmartStyleUrlContextT
       .to_return(status: 200, body: { 'color_background' => '#edeae3' }.to_json, headers: {})
 
     result = run(runnable,
-                 udap_auth_code_flow_registration_scope:,
+                 udap_authorization_code_request_scopes:,
                  token_response_body: JSON.generate(token_response_body))
 
     expect(result.result).to eq('pass')

@@ -3,10 +3,11 @@ require_relative '../../lib/smart_udap_harmonization_test_kit/smart_udap_request
 require 'udap_security_test_kit/default_cert_file_loader'
 
 RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenRefreshTest do # rubocop:disable RSpec/SpecFilePathFormat
+  let(:suite_id) { :smart_udap_harmonization }
   let(:runnable) { Inferno::Repositories::Tests.new.find('smart_udap_token_refresh') }
   let(:session_data_repo) { Inferno::Repositories::SessionData.new }
   let(:results_repo) { Inferno::Repositories::Results.new }
-  let(:test_session) { repo_create(:test_session, test_suite_id: 'smart_udap_harmonization') }
+  let(:test_session) { repo_create(:test_session, test_suite_id: suite_id) }
   let(:udap_auth_code_flow_client_cert_pem) do
     UDAPSecurityTestKit::DefaultCertFileLoader.load_test_client_cert_pem_file
   end
@@ -22,7 +23,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenRefreshTest do #
   let(:input) do
     {
       udap_refresh_token:,
-      udap_received_scopes: 'openid fhirUser offline_access patient/*.read',
+      received_scopes: 'openid fhirUser offline_access patient/*.read',
       udap_token_endpoint:,
       udap_client_id: 'CLIENT_ID',
       udap_auth_code_flow_client_cert_pem:,
@@ -51,7 +52,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenRefreshTest do #
 
     result = run(runnable,
                  udap_refresh_token: '',
-                 udap_received_scopes: 'scopes',
+                 received_scopes: 'scopes',
                  udap_token_endpoint:,
                  udap_client_id: 'CLIENT_ID',
                  udap_auth_code_flow_client_cert_pem:,

@@ -1,6 +1,6 @@
 require 'udap_security_test_kit'
+require_relative 'smart_udap_harmonization_test_kit/metadata'
 require_relative 'smart_udap_harmonization_test_kit/smart_udap_authorization_code_group'
-require_relative 'smart_udap_harmonization_test_kit/version'
 
 module SMART_UDAP_HarmonizationTestKit
   class Suite < Inferno::TestSuite
@@ -35,34 +35,33 @@ module SMART_UDAP_HarmonizationTestKit
       launch URI, so the tests only perform a standalone launch.
     )
 
-    version VERSION
-
     resume_test_route :get, '/redirect' do |request|
       request.query_parameters['state']
     end
 
-    config options: {
-      redirect_uri: "#{Inferno::Application['base_url']}/custom/smart_udap_harmonization/redirect"
-    }
-
     links [
       {
+        type: 'report_issue',
         label: 'Report Issue',
-        url: 'https://github.com/inferno-framework/smart-udap-harmonization-test-kit/issues'
+        url: 'https://github.com/inferno-framework/smart-udap-harmonization-test-kit/issues/'
       },
       {
+        type: 'source_code',
         label: 'Open Source',
-        url: 'https://github.com/inferno-framework/smart-udap-harmonization-test-kit'
+        url: 'https://github.com/inferno-framework/smart-udap-harmonization-test-kit/'
       },
       {
+        type: 'download',
         label: 'Download',
-        url: 'https://github.com/inferno-framework/smart-udap-harmonization-test-kit/releases'
+        url: 'https://github.com/inferno-framework/smart-udap-harmonization-test-kit/releases/'
       },
       {
+        type: 'ig',
         label: 'UDAP Implementation Guide',
         url: 'https://hl7.org/fhir/us/udap-security/STU1'
       },
       {
+        type: 'ig',
         label: 'SMART Implementation Guide',
         url: 'https://hl7.org/fhir/smart-app-launch/STU2.2/scopes-and-launch-context.html'
       }
