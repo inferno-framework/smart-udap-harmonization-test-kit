@@ -15,7 +15,7 @@ services:
     image: infernocommunity/fhir-validator-service
     # Update this path to match your directory structure
     volumes:
-      - ./data/igs:/app/igs
+      - ./data/igs:/home/igs
   fhir_validator_app:
     image: infernocommunity/fhir-validator-app
     depends_on:
@@ -29,7 +29,7 @@ services:
       - ./config/nginx.background.conf:/etc/nginx/nginx.conf
     ports:
       - "80:80"
-    command: [nginx, '-g', 'daemon off;']
+    command: [ nginx, '-g', 'daemon off;' ]
     depends_on:
       - fhir_validator_app
   redis:
