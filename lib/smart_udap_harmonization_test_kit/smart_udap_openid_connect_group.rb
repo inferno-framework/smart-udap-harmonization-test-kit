@@ -12,20 +12,32 @@ module SMART_UDAP_HarmonizationTestKit
 
     config(
       inputs: {
-        client_id: {
-          name: :udap_client_id,
-          title: 'UDAP Client ID'
+        smart_auth_info: {
+          title: 'UDAP Auth Info',
+          options: {
+            mode: 'access',
+            components: [
+              {
+                name: :auth_type,
+                default: 'asymmetric',
+                locked: true
+              },
+              {
+                name: :kid, # to be hidden
+                locked: true
+              },
+              {
+                name: :jwks, # to be hidden
+                locked: true
+              },
+              {
+                name: :requested_scopes # additional component to display
+              }
+            ]
+          }
         },
         token_response_body: {
           name: :udap_auth_code_flow_token_exchange_response_body
-        },
-        token_retrieval_time: {
-          name: :udap_auth_code_flow_token_retrieval_time
-        },
-        requested_scopes: {
-          name: :udap_auth_code_flow_registration_scope,
-          title: 'Requested Scopes',
-          description: 'Scopes client requested from the authorization server during the authorization step.'
         },
         url: {
           name: :udap_fhir_base_url,
@@ -42,25 +54,29 @@ module SMART_UDAP_HarmonizationTestKit
             title: 'Token Exchange Response Body',
             description: 'JSON response body returned by the authorization server during the token exchange step'
 
-      input :token_retrieval_time,
-            title: 'Token Retrieval Time'
+      # Needed to tranfer it to smart_auth_info. Should probably be hidden here
+      input :udap_auth_code_flow_registration_scope
+
+      input :smart_auth_info, type: :auth_info
 
       output :id_token,
              :access_token,
-             :smart_credentials
+             :smart_credentials,
+             :smart_auth_info
 
       run do
         assert_valid_json(token_response_body)
 
         token_response = JSON.parse(token_response_body)
 
+        smart_auth_info.access_token = token_response['access_token']
+        smart_auth_info.expires_in = token_response['expires_in']
+        smart_auth_info.requested_scopes = udap_auth_code_flow_registration_scope
+
         output id_token: token_response['id_token'],
                access_token: token_response['access_token'],
-               smart_credentials: {
-                 access_token: token_response_body['access_token'],
-                 expires_in: token_response_body['expires_in'],
-                 token_retrieval_time:
-               }.to_json
+               smart_credentials: smart_auth_info,
+               smart_auth_info: smart_auth_info
       end
     end
 

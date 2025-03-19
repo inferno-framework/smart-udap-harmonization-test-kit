@@ -24,21 +24,24 @@ module SMART_UDAP_HarmonizationTestKit
            :expires_in,
            :patient_id,
            :encounter_id,
-           :received_scopes
+           :received_scopes,
+           :smart_auth_info
 
     run do
       assert_valid_json(udap_auth_code_flow_token_exchange_response_body)
       token_response_body_parsed = JSON.parse(udap_auth_code_flow_token_exchange_response_body)
 
-      output smart_credentials: {
-        refresh_token: token_response_body_parsed['refresh_token'],
-        access_token: token_response_body_parsed['access_token'],
-        expires_in: token_response_body_parsed['expires_in'],
-        client_id: udap_client_id,
-        client_secret: '',
-        udap_auth_code_flow_token_retrieval_time:,
-        token_url: udap_token_endpoint
-      }.to_json
+      smart_auth_info = Inferno::DSL::AuthInfo.new(
+        {
+          refresh_token: token_response_body_parsed['refresh_token'],
+          access_token: token_response_body_parsed['access_token'],
+          expires_in: token_response_body_parsed['expires_in'],
+          client_id: udap_client_id,
+          client_secret: '',
+          issue_time: udap_auth_code_flow_token_retrieval_time,
+          token_url: udap_token_endpoint
+        }
+      )
 
       output id_token: token_response_body_parsed['id_token'],
              refresh_token: token_response_body_parsed['refresh_token'],
@@ -46,7 +49,9 @@ module SMART_UDAP_HarmonizationTestKit
              expires_in: token_response_body_parsed['expires_in'],
              patient_id: token_response_body_parsed['patient'],
              encounter_id: token_response_body_parsed['encounter'],
-             received_scopes: token_response_body_parsed['scope']
+             received_scopes: token_response_body_parsed['scope'],
+             smart_credentials: smart_auth_info,
+             smart_auth_info: smart_auth_info
 
       assert received_scopes.present?, 'Token exchange response does not include the `scope` parameter'
 
