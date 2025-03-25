@@ -17,8 +17,7 @@ module SMART_UDAP_HarmonizationTestKit
           :udap_token_endpoint,
           :udap_client_id
 
-    output :smart_credentials,
-           :id_token,
+    output :id_token,
            :refresh_token,
            :access_token,
            :expires_in,
@@ -37,8 +36,8 @@ module SMART_UDAP_HarmonizationTestKit
           access_token: token_response_body_parsed['access_token'],
           expires_in: token_response_body_parsed['expires_in'],
           client_id: udap_client_id,
-          client_secret: '',
           issue_time: udap_auth_code_flow_token_retrieval_time,
+          requested_scopes: udap_authorization_code_request_scopes,
           token_url: udap_token_endpoint
         }
       )
@@ -50,7 +49,6 @@ module SMART_UDAP_HarmonizationTestKit
              patient_id: token_response_body_parsed['patient'],
              encounter_id: token_response_body_parsed['encounter'],
              received_scopes: token_response_body_parsed['scope'],
-             smart_credentials: smart_auth_info,
              smart_auth_info: smart_auth_info
 
       assert received_scopes.present?, 'Token exchange response does not include the `scope` parameter'
