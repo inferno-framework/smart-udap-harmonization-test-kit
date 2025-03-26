@@ -16,24 +16,6 @@ module SMART_UDAP_HarmonizationTestKit
           title: 'UDAP Auth Info',
           options: {
             mode: 'access',
-            components: [
-              {
-                name: :auth_type,
-                default: 'asymmetric',
-                locked: true
-              },
-              {
-                name: :kid, # to be hidden
-                locked: true
-              },
-              {
-                name: :jwks, # to be hidden
-                locked: true
-              },
-              {
-                name: :requested_scopes # additional component to display
-              }
-            ]
           }
         },
         token_response_body: {
