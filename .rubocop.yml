@@ -82,6 +82,10 @@ RSpec/NestedGroups:
 RSpec/NotToNot:
   EnforcedStyle: to_not
 
+RSpec/SpecFilePathFormat:
+  CustomTransform:
+    SMART_UDAP_HarmonizationTestKit: smart_udap_harmonization_test_kit
+
 RSpec/SubjectStub:
   Enabled: false
 
