@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    smart_udap_harmonization_test_kit (0.10.2)
+    smart_udap_harmonization_test_kit (0.11.0)
       inferno_core (~> 0.6.7)
       smart_app_launch_test_kit (~> 0.6.0)
       udap_security_test_kit (~> 0.11.0)
