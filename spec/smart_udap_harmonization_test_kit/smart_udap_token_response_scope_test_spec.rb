@@ -41,6 +41,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTes
     result = run(runnable,
                  udap_token_endpoint:,
                  udap_authorization_code_request_scopes:,
+                 udap_auth_code_flow_registration_scope: udap_authorization_code_request_scopes,
                  udap_client_id:,
                  udap_auth_code_flow_token_exchange_response_body: invalid_response_body,
                  udap_auth_code_flow_token_retrieval_time:)
@@ -53,6 +54,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTes
     result = run(runnable,
                  udap_token_endpoint:,
                  udap_authorization_code_request_scopes:,
+                 udap_auth_code_flow_registration_scope: udap_authorization_code_request_scopes,
                  udap_client_id:,
                  udap_auth_code_flow_token_exchange_response_body: JSON.generate(correct_response),
                  udap_auth_code_flow_token_retrieval_time:)
@@ -64,6 +66,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTes
     result = run(runnable,
                  udap_token_endpoint:,
                  udap_authorization_code_request_scopes:,
+                 udap_auth_code_flow_registration_scope: udap_authorization_code_request_scopes,
                  udap_client_id:,
                  udap_auth_code_flow_token_exchange_response_body: JSON.generate(correct_response),
                  udap_auth_code_flow_token_retrieval_time:)
@@ -76,6 +79,7 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTes
     result = run(runnable,
                  udap_token_endpoint:,
                  udap_authorization_code_request_scopes:,
+                 udap_auth_code_flow_registration_scope: udap_authorization_code_request_scopes,
                  udap_client_id:,
                  udap_auth_code_flow_token_exchange_response_body: JSON.generate(correct_response),
                  udap_auth_code_flow_token_retrieval_time:)

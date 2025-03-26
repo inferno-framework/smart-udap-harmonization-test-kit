@@ -15,7 +15,7 @@ module SMART_UDAP_HarmonizationTestKit
         smart_auth_info: {
           title: 'UDAP Auth Info',
           options: {
-            mode: 'access',
+            mode: 'access'
           }
         },
         token_response_body: {
