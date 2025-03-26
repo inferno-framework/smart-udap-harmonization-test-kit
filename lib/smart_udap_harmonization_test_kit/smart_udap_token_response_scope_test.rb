@@ -17,6 +17,15 @@ module SMART_UDAP_HarmonizationTestKit
           :udap_token_endpoint,
           :udap_client_id
 
+    input :udap_auth_code_flow_registration_scope,
+          title: 'Authorization Code Registration Requested Scope(s)',
+          description: %(
+            String containing a space delimited list of scopes requested by the client application for use in
+            subsequent requests. The Authorization Server MAY consider this list when deciding the scopes that it
+            will allow the application to subsequently request. Apps requesting the "authorization_code" grant
+            type SHOULD request user or patient scopes.
+          )
+
     output :id_token,
            :refresh_token,
            :access_token,
@@ -37,7 +46,7 @@ module SMART_UDAP_HarmonizationTestKit
           expires_in: token_response_body_parsed['expires_in'],
           client_id: udap_client_id,
           issue_time: udap_auth_code_flow_token_retrieval_time,
-          requested_scopes: udap_authorization_code_request_scopes,
+          requested_scopes: udap_auth_code_flow_registration_scope,
           token_url: udap_token_endpoint
         }
       )
