@@ -42,7 +42,7 @@ module SMART_UDAP_HarmonizationTestKit
       Please report any issues with this set of tests in the [GitHub Issues](https://github.com/inferno-framework/smart-udap-harmonization-test-kit/issues) section of the [open-source code repository](https://github.com/inferno-framework/smart-udap-harmonization-test-kit).
     DESCRIPTION
     suite_ids [:smart_udap_harmonization]
-    tags ['UDAP', 'SMART App Launch']
+    tags ['UDAP Security', 'SMART App Launch']
     last_updated LAST_UPDATED
     version VERSION
     maturity 'Low'
