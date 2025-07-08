@@ -2,11 +2,7 @@ require_relative '../../lib/smart_udap_harmonization_test_kit/smart_udap_token_r
 
 RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTest do # rubocop:disable RSpec/SpecFilePathFormat
   let(:suite_id) { :smart_udap_harmonization }
-  let(:runnable) { Inferno::Repositories::Tests.new.find('smart_udap_token_response_scope') }
-  let(:session_data_repo) { Inferno::Repositories::SessionData.new }
-  let(:results_repo) { Inferno::Repositories::Results.new }
-  let(:test_session) { repo_create(:test_session, test_suite_id: suite_id) }
-
+  let(:runnable) { find_test suite, 'smart_udap_token_response_scope' }
   let(:udap_token_endpoint) { 'https://example.com/token' }
   let(:udap_authorization_code_request_scopes) { 'openid fhirUser offline_access patient/*.read' }
   let(:udap_client_id) { 'example_client_id' }
@@ -21,20 +17,6 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenResponseScopeTes
     }
   end
   let(:udap_auth_code_flow_token_retrieval_time) { Time.now.iso8601 }
-
-  def run(runnable, inputs = {})
-    test_run_params = { test_session_id: test_session.id }.merge(runnable.reference_hash)
-    test_run = Inferno::Repositories::TestRuns.new.create(test_run_params)
-    inputs.each do |name, value|
-      session_data_repo.save(
-        test_session_id: test_session.id,
-        name:,
-        value:,
-        type: runnable.config.input_type(name)
-      )
-    end
-    Inferno::TestRunner.new(test_session:, test_run:).run(runnable)
-  end
 
   it 'fails if response is not valid JSON' do
     invalid_response_body = '{invalid_key: invalid_value}'

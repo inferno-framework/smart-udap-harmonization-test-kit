@@ -2,10 +2,7 @@ require_relative '../../lib/smart_udap_harmonization_test_kit/smart_udap_smart_s
 
 RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_SmartStyleUrlContextTest do # rubocop:disable RSpec/SpecFilePathFormat
   let(:suite_id) { :smart_udap_harmonization }
-  let(:runnable) { Inferno::Repositories::Tests.new.find('smart_udap_smart_style_url_context') }
-  let(:session_data_repo) { Inferno::Repositories::SessionData.new }
-  let(:results_repo) { Inferno::Repositories::Results.new }
-  let(:test_session) { repo_create(:test_session, test_suite_id: suite_id) }
+  let(:runnable) { find_test suite, 'smart_udap_smart_style_url_context' }
   let(:udap_authorization_code_request_scopes) { 'launch/patient openid fhirUser offline_access patient/*.read' }
   let(:smart_style_url) { 'http://example.com/smart_style_url' }
   let(:token_response_body) do
@@ -19,20 +16,6 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_SmartStyleUrlContextT
       'patient' => 'EXAMPLE_PATIENT',
       'smart_style_url' => smart_style_url
     }
-  end
-
-  def run(runnable, inputs = {})
-    test_run_params = { test_session_id: test_session.id }.merge(runnable.reference_hash)
-    test_run = Inferno::Repositories::TestRuns.new.create(test_run_params)
-    inputs.each do |name, value|
-      session_data_repo.save(
-        test_session_id: test_session.id,
-        name:,
-        value:,
-        type: runnable.config.input_type(name)
-      )
-    end
-    Inferno::TestRunner.new(test_session:, test_run:).run(runnable)
   end
 
   it 'skips if response body is not present' do
