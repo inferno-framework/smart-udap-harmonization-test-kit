@@ -4,10 +4,7 @@ require 'udap_security_test_kit/default_cert_file_loader'
 
 RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenRefreshTest do # rubocop:disable RSpec/SpecFilePathFormat
   let(:suite_id) { :smart_udap_harmonization }
-  let(:runnable) { Inferno::Repositories::Tests.new.find('smart_udap_token_refresh') }
-  let(:session_data_repo) { Inferno::Repositories::SessionData.new }
-  let(:results_repo) { Inferno::Repositories::Results.new }
-  let(:test_session) { repo_create(:test_session, test_suite_id: suite_id) }
+  let(:runnable) { find_test suite, 'smart_udap_token_refresh' }
   let(:udap_auth_code_flow_client_cert_pem) do
     UDAPSecurityTestKit::DefaultCertFileLoader.load_test_client_cert_pem_file
   end
@@ -30,20 +27,6 @@ RSpec.describe SMART_UDAP_HarmonizationTestKit::SMART_UDAP_TokenRefreshTest do #
       udap_auth_code_flow_client_private_key:,
       udap_jwt_signing_alg: 'RS256'
     }
-  end
-
-  def run(runnable, inputs = {})
-    test_run_params = { test_session_id: test_session.id }.merge(runnable.reference_hash)
-    test_run = Inferno::Repositories::TestRuns.new.create(test_run_params)
-    inputs.each do |name, value|
-      session_data_repo.save(
-        test_session_id: test_session.id,
-        name:,
-        value:,
-        type: runnable.config.input_type(name)
-      )
-    end
-    Inferno::TestRunner.new(test_session:, test_run:).run(runnable)
   end
 
   it 'skips if refresh token is not present' do
